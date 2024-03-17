@@ -1,0 +1,42 @@
+import {
+    LucideIcon,
+    UsersRound,
+    Settings,
+    LucideLogOut,
+    User2Icon,
+    User,
+    File,
+    Image,
+    ArrowRight,
+    ArrowLeft,
+    HelpCircle,
+    SunMedium,
+    Moon,
+    AlertTriangle,
+    Plus,
+    LayoutDashboard,
+    Trash,
+    X,
+} from 'lucide-react';
+
+export type Icon = LucideIcon;
+
+export const Icons = {
+    account: UsersRound,
+    dashboard: LayoutDashboard,
+    logOut: LucideLogOut,
+    close: X,
+    profile: User2Icon,
+    trash: Trash,
+    page: File,
+    media: Image,
+    settings: Settings,
+    add: Plus,
+    warning: AlertTriangle,
+    user: User,
+    arrowRight: ArrowRight,
+    arrowLeft: ArrowLeft,
+    help: HelpCircle,
+    sun: SunMedium,
+    moon: Moon,
+};
