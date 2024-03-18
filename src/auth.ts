@@ -18,7 +18,7 @@ export const {
     providers: [
         Credentials({
             name: 'Credentials',
-            async authorize(credentials) {
+            async authorize(credentials): Promise<any> {
                 const parsedCredentials = loginSchema.safeParse(credentials);
                 await dbConnect();
                 try {

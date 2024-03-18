@@ -38,8 +38,8 @@ export const applicantSchema = userSchema.extend({
         institutionName: z.string().min(3, {
             message: 'Institution name must be at least 3 characters.',
         }),
-        startYear: z.number(),
-        endYear: z.number(),
+        startYear: z.coerce.date(),
+        endYear: z.coerce.date(),
     }),
     skills: z.string(),
     resume: z.string(),
