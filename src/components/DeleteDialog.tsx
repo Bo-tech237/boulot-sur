@@ -65,7 +65,7 @@ function DeleteDialog({ id, action, children }: Props) {
                 <DialogTrigger asChild>
                     <div className="cursor-pointer">{children}</div>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
+                <DialogContent className="w-80 sm:max-w-[425px]">
                     <DialogHeader className="flex flex-col gap-3">
                         <DialogTitle>Are you really sure?</DialogTitle>
                         <DialogDescription>

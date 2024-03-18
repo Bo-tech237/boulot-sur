@@ -70,7 +70,7 @@ function JobApplyDialog({ jobId }: { jobId: string }) {
                         Apply
                     </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
+                <DialogContent className="w-80 sm:max-w-[425px]">
                     <DialogHeader>
                         <DialogTitle>Apply Job</DialogTitle>
                         <DialogDescription>
