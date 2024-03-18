@@ -65,7 +65,7 @@ export function SelectForm({ applicationId }: Prop) {
             });
         }
 
-        if (updatedApplication.success === true) {
+        if (updatedApplication?.success === true) {
             toast({
                 variant: 'success',
                 title: updatedApplication?.message,
