@@ -8,7 +8,7 @@ async function Applications() {
     console.log('applications', applications);
 
     return (
-        <div className="container mx-auto py-10">
+        <div className="py-10">
             {applications && (
                 <DataTable columns={columns} data={applications} />
             )}
