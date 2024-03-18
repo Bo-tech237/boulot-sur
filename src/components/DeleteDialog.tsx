@@ -39,7 +39,7 @@ function DeleteDialog({ id, action, children }: Props) {
                 setLoading(false);
                 toast({
                     variant: 'destructive',
-                    title: deletedJob.message,
+                    title: deletedJob?.message,
                     description: `${new Date()}`,
                 });
                 return;
@@ -47,7 +47,7 @@ function DeleteDialog({ id, action, children }: Props) {
             setLoading(false);
             toast({
                 variant: 'success',
-                title: deletedJob.message,
+                title: deletedJob?.message,
                 description: `${new Date()}`,
             });
 
@@ -69,8 +69,8 @@ function DeleteDialog({ id, action, children }: Props) {
                     <DialogHeader className="flex flex-col gap-3">
                         <DialogTitle>Are you really sure?</DialogTitle>
                         <DialogDescription>
-                            <span className="text-red-700">WARNING</span>. There
-                            will be no reverse action.
+                            <span className="text-red-700">WARNING</span> .
+                            There will be no reverse action.
                         </DialogDescription>
                     </DialogHeader>
                     <DialogFooter className="">
