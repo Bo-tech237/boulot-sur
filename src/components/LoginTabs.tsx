@@ -14,7 +14,7 @@ import {
 function LoginTabs() {
     return (
         <div>
-            <Tabs defaultValue="recruiter" className="w-[400px]">
+            <Tabs defaultValue="recruiter" className="w-80 sm:w-[400px]">
                 <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="recruiter">
                         RECRUITER ACCOUNT
