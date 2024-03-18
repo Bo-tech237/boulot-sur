@@ -25,14 +25,14 @@ function MobileNav() {
         <>
             <Sheet>
                 <SheetTrigger>
-                    <MenuIcon />
+                    <MenuIcon size={50} />
                 </SheetTrigger>
                 <SheetContent
                     side={'left'}
                     className="w-[300px] sm:w-[540px] flex flex-col items-center justify-center"
                 >
                     <SheetHeader>
-                        <SheetTitle>ALEX JOB</SheetTitle>
+                        <SheetTitle>BOULOT SUR</SheetTitle>
                         <SheetDescription>
                             THE BEST JOB PORTAL WEB APP.
                         </SheetDescription>
