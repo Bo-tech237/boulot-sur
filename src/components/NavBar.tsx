@@ -67,7 +67,7 @@ function NavBar({ session }: Props) {
                     </NavigationMenuList>
                 </NavigationMenu>
             ) : (
-                <MobileNav />
+                <MobileNav session={session} />
             )}
             <ModeToggle />
         </div>

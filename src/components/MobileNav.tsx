@@ -16,11 +16,15 @@ import {
     SheetTitle,
     SheetTrigger,
 } from '@/components/ui/sheet';
-
 import { MenuIcon } from 'lucide-react';
 import Link from 'next/link';
+import { Session } from 'next-auth';
 
-function MobileNav() {
+interface Props {
+    session: Session | null;
+}
+
+function MobileNav({ session }: Props) {
     return (
         <>
             <Sheet>
@@ -66,6 +70,21 @@ function MobileNav() {
                                     </NavigationMenuLink>
                                 </Link>
                             </NavigationMenuItem>
+                            {session && (
+                                <NavigationMenuItem>
+                                    <Link
+                                        href="/dashboard"
+                                        legacyBehavior
+                                        passHref
+                                    >
+                                        <NavigationMenuLink
+                                            className={navigationMenuTriggerStyle()}
+                                        >
+                                            Dashboard
+                                        </NavigationMenuLink>
+                                    </Link>
+                                </NavigationMenuItem>
+                            )}
                         </NavigationMenuList>
                     </NavigationMenu>
                 </SheetContent>
