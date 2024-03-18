@@ -22,7 +22,7 @@ function NavBar({ session }: Props) {
     const isDesktop = useMediaQuery('(min-width:768px)');
 
     return (
-        <div className="flex items-center gap-4 p-4">
+        <div className="flex items-center gap-4 py-4">
             {isDesktop ? (
                 <NavigationMenu>
                     <NavigationMenuList>

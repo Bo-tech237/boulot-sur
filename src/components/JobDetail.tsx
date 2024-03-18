@@ -1,12 +1,14 @@
 import React from 'react';
 import { jobApiTypes } from '@/lib/jobSchema';
 import JobApplyDialog from './JobApplyDialog';
+import { Button } from './ui/button';
+import Link from 'next/link';
 
 type Props = { job: jobApiTypes };
 
 function JobDetail({ job }: Props) {
     return (
-        <div>
+        <div className="container">
             <div className="flex flex-col gap-5">
                 <h1>{job.title}</h1>
                 <div className="w-full flex flex-wrap gap-3 sm:gap-5">
@@ -42,7 +44,12 @@ function JobDetail({ job }: Props) {
                 <div className="">
                     <p>{job.description}</p>
                 </div>
-                <JobApplyDialog jobId={job._id} />
+                <div className="flex justify-between items-center gap-2">
+                    <JobApplyDialog jobId={job._id} />
+                    <Button>
+                        <Link href="/jobs">Back to Jobs</Link>
+                    </Button>
+                </div>
             </div>
         </div>
     );
