@@ -29,7 +29,7 @@ function MobileNav() {
                 </SheetTrigger>
                 <SheetContent
                     side={'left'}
-                    className="w-[400px] sm:w-[540px] flex flex-col items-center justify-center"
+                    className="w-[300px] sm:w-[540px] flex flex-col items-center justify-center"
                 >
                     <SheetHeader>
                         <SheetTitle>ALEX JOB</SheetTitle>
