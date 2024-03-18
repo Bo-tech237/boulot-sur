@@ -61,14 +61,14 @@ export function SelectForm({ applicationId }: Prop) {
 
         if (updatedApplication?.success === false) {
             return form.setError('root', {
-                message: updatedApplication.message,
+                message: updatedApplication?.message,
             });
         }
 
         if (updatedApplication.success === true) {
             toast({
                 variant: 'success',
-                title: updatedApplication.message,
+                title: updatedApplication?.message,
                 description: `${new Date()}`,
             });
 
