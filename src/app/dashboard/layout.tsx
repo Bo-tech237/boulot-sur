@@ -21,13 +21,10 @@ export default async function SettingsLayout({
 }: SettingsLayoutProps) {
     return (
         <>
-            <ResizablePanelGroup
-                className=" min-h-screen"
-                direction="horizontal"
-            >
+            <ResizablePanelGroup className="" direction="horizontal">
                 <ResizablePanel
-                    minSize={4}
-                    maxSize={20}
+                    // minSize={4}
+                    // maxSize={20}
                     defaultSize={15}
                     className="border-y pt-7"
                 >
@@ -37,7 +34,7 @@ export default async function SettingsLayout({
                 </ResizablePanel>
                 <ResizableHandle withHandle />
                 <ResizablePanel defaultSize={85}>
-                    <div className="flex-[4] px-4">
+                    <div className="flex-[4] px-4 overflow-auto">
                         <div className="flex justify-between items-center py-3">
                             <h1>Dashboard nav</h1>
                             <SignoutButton />

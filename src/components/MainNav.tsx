@@ -6,7 +6,7 @@ async function MainNav() {
     const user = session?.user;
 
     return (
-        <header className="container sticky top-0 z-50 w-full bg-background">
+        <header className="md:container sticky top-0 z-50 w-full bg-background">
             <NavBar session={session} />
         </header>
     );
