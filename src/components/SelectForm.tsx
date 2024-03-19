@@ -38,7 +38,7 @@ export function SelectForm({ applicationId, role }: Prop) {
         resolver: zodResolver(FormSchema),
     });
 
-    console.log('selectRole', role);
+    console.log('select02', role);
     async function onSubmit(data: z.infer<typeof FormSchema>) {
         const updatedApplication = await updateApplication(applicationId, data);
 
