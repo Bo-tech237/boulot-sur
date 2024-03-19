@@ -18,7 +18,8 @@ type Props = {
     application: {
         _id: string;
         status: string;
-        applicant: { name: string; resume: string };
+        applicant: { name: string; resume: string; role: string };
+        recruiter: { name: string; role: string };
         job: { title: string };
     };
 
@@ -36,12 +37,18 @@ function UpdateDialog({ application, children }: Props) {
                     <DialogHeader className="flex flex-col gap-3">
                         <DialogTitle>Are you sure?</DialogTitle>
                         <DialogDescription>
-                            Do you want to change {application?.applicant.name}{' '}
+                            Do you want to change{' '}
+                            {application?.recruiter.role === 'recruiter'
+                                ? application?.applicant.name
+                                : 'your'}{' '}
                             status?
                         </DialogDescription>
                     </DialogHeader>
 
-                    <SelectForm applicationId={application?._id} />
+                    <SelectForm
+                        applicationId={application?._id}
+                        role={application?.recruiter.role}
+                    />
 
                     <DialogFooter>
                         <DialogClose asChild>

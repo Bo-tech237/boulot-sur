@@ -11,7 +11,7 @@ async function JobCardList() {
         <div className="flex gap-2 flex-col">
             <div className="container mx-auto">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                    {jobs.length > 0 &&
+                    {jobs?.length > 0 &&
                         jobs.map((job) => (
                             <div
                                 className="p-2 flex justify-center items-center"
@@ -23,7 +23,7 @@ async function JobCardList() {
                 </div>
             </div>
             <div className="h-screen flex flex-col items-center justify-center text-4xl">
-                {!jobs.length && 'No Job Available'}
+                {!jobs?.length && 'No Job Available'}
             </div>
         </div>
     );

@@ -23,7 +23,6 @@ import {
 import { toast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import { updateApplication } from '@/route.actions/applications-actions';
-import { useEffect, useState } from 'react';
 
 const FormSchema = z.object({
     status: z
@@ -31,31 +30,15 @@ const FormSchema = z.object({
         .min(1, { message: 'Please select an action to display.' }),
 });
 
-type Prop = { applicationId: string };
-type authType = {
-    name: string;
-    email: string;
-    image: string;
-    role: string;
-    id: string;
-};
+type Prop = { applicationId: string; role: string };
 
-export function SelectForm({ applicationId }: Prop) {
-    const [user, setUser] = useState<authType>();
+export function SelectForm({ applicationId, role }: Prop) {
     const router = useRouter();
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
     });
 
-    useEffect(() => {
-        async function getAuthUser() {
-            const res = await fetch('/api/protected');
-            const user: authType = await res.json();
-            return setUser(user);
-        }
-        getAuthUser();
-    }, []);
-    console.log('select02', user);
+    console.log('selectRole', role);
     async function onSubmit(data: z.infer<typeof FormSchema>) {
         const updatedApplication = await updateApplication(applicationId, data);
 
@@ -97,7 +80,7 @@ export function SelectForm({ applicationId }: Prop) {
                                         <SelectValue placeholder="Select a status to display" />
                                     </SelectTrigger>
                                 </FormControl>
-                                {user?.role === 'recruiter' ? (
+                                {role === 'recruiter' ? (
                                     <SelectContent>
                                         <SelectItem value="shortlisted">
                                             shortlist

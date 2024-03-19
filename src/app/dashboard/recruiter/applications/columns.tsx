@@ -89,13 +89,7 @@ export const columns: ColumnDef<any>[] = [
     {
         id: 'actions',
         cell: ({ row }) => {
-            type Data = {
-                _id: string;
-                status: string;
-                applicant: { name: string; resume: string };
-                job: { title: string };
-            };
-            const application: Data = row.original;
+            const application = row.original;
 
             return (
                 <DropdownMenu>
