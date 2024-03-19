@@ -11,7 +11,7 @@ async function Application() {
             {applications && (
                 <DataTable columns={columns} data={applications} />
             )}
-            {applications.success === false && (
+            {applications?.success === false && (
                 <div className="text-red-600 text-xl">
                     You have no applicant.
                 </div>

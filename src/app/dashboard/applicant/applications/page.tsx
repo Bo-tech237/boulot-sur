@@ -12,7 +12,7 @@ async function Applications() {
             {applications && (
                 <DataTable columns={columns} data={applications} />
             )}
-            {applications.success === false && (
+            {applications?.success === false && (
                 <div className="text-red-600 text-xl">
                     You did not apply for any job.
                 </div>
