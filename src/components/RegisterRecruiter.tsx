@@ -66,7 +66,7 @@ function RegisterRecruiter({ recruiter }: Props) {
     );
 
     async function getRecruiterData(data: recruiterTypes) {
-        const res = await fetch('http://localhost:3000/api/recruiters', {
+        const res = await fetch('/api/recruiters', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: { 'content-type': 'application/json' },
@@ -76,7 +76,7 @@ function RegisterRecruiter({ recruiter }: Props) {
     }
     async function updateRecruiterData(id: string, data: recruiterTypes) {
         const recruiter = { id, ...data };
-        const res = await fetch('http://localhost:3000/api/recruiters', {
+        const res = await fetch('/api/recruiters', {
             method: 'PATCH',
             body: JSON.stringify(recruiter),
             headers: { 'content-type': 'application/json' },

@@ -70,7 +70,7 @@ function RegisterApplicant({ applicant }: Props) {
     );
 
     async function getApplicantData(data: applicantTypes) {
-        const res = await fetch('http://localhost:3000/api/applicants', {
+        const res = await fetch('/api/applicants', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: { 'content-type': 'application/json' },
@@ -80,7 +80,7 @@ function RegisterApplicant({ applicant }: Props) {
     }
     async function updateApplicantData(id: string, data: applicantTypes) {
         const applicant = { id, ...data };
-        const res = await fetch('http://localhost:3000/api/applicants', {
+        const res = await fetch('/api/applicants', {
             method: 'PATCH',
             body: JSON.stringify(applicant),
             headers: { 'content-type': 'application/json' },

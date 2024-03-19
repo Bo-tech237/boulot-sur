@@ -49,7 +49,7 @@ export function SelectForm({ applicationId }: Prop) {
 
     useEffect(() => {
         async function getAuthUser() {
-            const res = await fetch('http://localhost:3000/api/protected');
+            const res = await fetch('/api/protected');
             const user: authType = await res.json();
             return setUser(user);
         }
