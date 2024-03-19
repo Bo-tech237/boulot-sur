@@ -5,7 +5,6 @@ import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import MainNav from '@/components/MainNav';
 import { Toaster } from '@/components/ui/toaster';
-import { SessionProvider } from 'next-auth/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
     description: 'Coded by Ferdinand',
 };
 
-export default async function RootLayout({
+export default function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
@@ -22,15 +21,13 @@ export default async function RootLayout({
     return (
         <html lang="en" suppressContentEditableWarning>
             <body className={inter.className}>
-                <SessionProvider>
-                    <ThemeProvider>
-                        <main>
-                            <MainNav />
-                            {children}
-                        </main>
-                        <Toaster />
-                    </ThemeProvider>
-                </SessionProvider>
+                <ThemeProvider>
+                    <main>
+                        <MainNav />
+                        {children}
+                    </main>
+                    <Toaster />
+                </ThemeProvider>
             </body>
         </html>
     );
