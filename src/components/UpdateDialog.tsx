@@ -40,7 +40,7 @@ function UpdateDialog({ application, children }: Props) {
                             Do you want to change{' '}
                             {application?.recruiter.role === 'recruiter'
                                 ? application?.applicant.name
-                                : ''}{' '}
+                                : 'your'}{' '}
                             status?
                         </DialogDescription>
                     </DialogHeader>
