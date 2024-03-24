@@ -88,8 +88,6 @@ export function AppRating({
 
             return router.push('/dashboard/recruiter/applications');
         }
-
-        alert(result.message);
     }
 
     return (
