@@ -17,6 +17,8 @@ import { Download } from 'lucide-react';
 import DeleteDialog from '@/components/DeleteDialog';
 import { deleteApplication } from '@/route.actions/applications-actions';
 import UpdateDialog from '@/components/UpdateDialog';
+import RatingDialog from '@/components/RatingDialog';
+import { updateRatings } from '@/route.actions/ratings-actions';
 
 export const columns: ColumnDef<any>[] = [
     {
@@ -90,6 +92,7 @@ export const columns: ColumnDef<any>[] = [
         id: 'actions',
         cell: ({ row }) => {
             const application = row.original;
+            const data = { applicantId: application?.applicant?._id };
 
             return (
                 <DropdownMenu>
@@ -115,6 +118,12 @@ export const columns: ColumnDef<any>[] = [
                             >
                                 Delete
                             </DeleteDialog>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                            <RatingDialog application={data}>
+                                Rating
+                            </RatingDialog>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

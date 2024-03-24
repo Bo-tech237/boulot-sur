@@ -16,6 +16,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { deleteJob } from '@/route.actions/jobs-actions';
 import Link from 'next/link';
 import DeleteDialog from '@/components/DeleteDialog';
+import { ShowRating } from '@/components/ui/showRating';
 
 export const columns: ColumnDef<jobApiTypes>[] = [
     {
@@ -122,12 +123,19 @@ export const columns: ColumnDef<jobApiTypes>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Rating" />
         ),
+        cell: ({ row }) => {
+            return (
+                <div>
+                    <ShowRating userRating={row.getValue('rating')} />
+                </div>
+            );
+        },
     },
     {
         id: 'actions',
         cell: ({ row }) => {
             const job = row.original;
-            console.log('id', job._id);
+
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>

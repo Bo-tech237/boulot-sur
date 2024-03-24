@@ -15,6 +15,7 @@ import { MoreHorizontal } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ShowRating } from '@/components/ui/showRating';
 
 export const columns: ColumnDef<applicantApiTypes>[] = [
     {
@@ -88,6 +89,13 @@ export const columns: ColumnDef<applicantApiTypes>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Rating" />
         ),
+        cell: ({ row }) => {
+            return (
+                <div>
+                    <ShowRating userRating={row.getValue('rating')} />
+                </div>
+            );
+        },
     },
     {
         accessorKey: 'resume',

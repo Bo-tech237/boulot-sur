@@ -12,9 +12,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { MoreHorizontal } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import Link from 'next/link';
+import { ShowRating } from '@/components/ui/showRating';
 
 export const columns: ColumnDef<recruiterApiTypes>[] = [
     {
@@ -88,6 +88,13 @@ export const columns: ColumnDef<recruiterApiTypes>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Rating" />
         ),
+        cell: ({ row }) => {
+            return (
+                <div>
+                    <ShowRating userRating={row.getValue('rating')} />
+                </div>
+            );
+        },
     },
 
     {

@@ -12,6 +12,8 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { jobApiTypes } from '@/lib/jobSchema';
 import { friendlyTime } from '@/lib/friendly-time';
+import { AppRating } from './ui/rating';
+import { ShowRating } from './ui/showRating';
 
 type Props = { job: jobApiTypes };
 
@@ -35,7 +37,9 @@ function JobCard({ job }: Props) {
 
                         <p>Skills: {job.skillsets.join(', ')}</p>
 
-                        <p>rating: {job.rating}</p>
+                        <p>
+                            <ShowRating userRating={job.rating} />
+                        </p>
                     </div>
                 </CardContent>
                 <CardFooter>

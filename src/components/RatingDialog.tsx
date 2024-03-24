@@ -12,21 +12,15 @@ import {
     DialogTrigger,
 } from './ui/dialog';
 import { ReactNode } from 'react';
-import { SelectForm } from './SelectForm';
+import { AppRating } from './ui/rating';
 
 type Props = {
-    application: {
-        _id: string;
-        status: string;
-        applicant: { name: string; resume: string; role: string; _id: string };
-        recruiter: { name: string; role: string; _id: string };
-        job: { title: string; _id: string };
-    };
+    application: any;
 
     children: ReactNode;
 };
 
-function UpdateDialog({ application, children }: Props) {
+function RatingDialog({ application, children }: Props) {
     return (
         <div>
             <Dialog>
@@ -37,18 +31,11 @@ function UpdateDialog({ application, children }: Props) {
                     <DialogHeader className="flex flex-col gap-3">
                         <DialogTitle>Are you sure?</DialogTitle>
                         <DialogDescription>
-                            Do you want to change{' '}
-                            {application?.recruiter.role === 'recruiter'
-                                ? application?.applicant.name
-                                : 'your'}{' '}
-                            status?
+                            Do you want to give a rating?
                         </DialogDescription>
                     </DialogHeader>
 
-                    <SelectForm
-                        applicationId={application?._id}
-                        role={application?.recruiter.role}
-                    />
+                    <AppRating application={application} />
 
                     <DialogFooter>
                         <DialogClose asChild>
@@ -63,4 +50,4 @@ function UpdateDialog({ application, children }: Props) {
     );
 }
 
-export default UpdateDialog;
+export default RatingDialog;

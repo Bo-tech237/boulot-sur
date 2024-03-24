@@ -200,6 +200,8 @@ export async function updateRatings(data: any) {
                         $in: ['accepted', 'finished'],
                     },
                 });
+                console.log('acceptedApplicant', acceptedApplicant);
+
                 if (acceptedApplicant > 0) {
                     //add a new rating
                     const newRating = await Rating.create({
@@ -235,7 +237,9 @@ export async function updateRatings(data: any) {
                             },
                         },
                     ]).exec();
+
                     console.log('applicant avg:', avg);
+
                     if (!avg.length) {
                         return {
                             success: false,
@@ -280,7 +284,9 @@ export async function updateRatings(data: any) {
                             },
                         },
                     ]).exec();
+
                     console.log('applicant recruiterAvg:', recruiterAvg);
+
                     if (!recruiterAvg.length) {
                         return {
                             success: false,
