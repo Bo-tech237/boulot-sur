@@ -10,7 +10,7 @@ async function CreateJob({ searchParams }: Props) {
     const job = await getJobById(id);
 
     return (
-        <div>
+        <div className="my-3">
             <AddNewJob job={job} />
         </div>
     );

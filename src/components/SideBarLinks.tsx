@@ -63,7 +63,8 @@ export function SideBarLinks({ session }: Props) {
                               )}
                           >
                               <span className="flex items-center justify-center gap-3">
-                                  <Icon /> {item.title}
+                                  <Icon className="hidden sm:block" />{' '}
+                                  {item.title}
                               </span>
                           </Link>
                       );

@@ -31,7 +31,7 @@ export default async function SettingsLayout({
                         <h1 className="font-bold text-xl">Boulot-Sur</h1>
                         <SignoutButton />
                     </div>
-                    <div className="py-3 border sm:hidden">
+                    <div className="py-3 border rounded sm:hidden">
                         <SidebarNav />
                     </div>
                     {children}
