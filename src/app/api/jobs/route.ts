@@ -5,29 +5,14 @@ import { auth } from '@/auth';
 import { jobApiTypes } from '@/lib/jobSchema';
 import { revalidatePath } from 'next/cache';
 
-import mongoose from 'mongoose';
-
 // @desc Get all jobs
 // @route GET /jobs
 // @access Private
 export async function GET() {
-    // make a get call to protected route later
-    await dbConnect();
-
-    const session = await auth();
-    const user = session?.user;
-    console.log('up', session);
     try {
-        let findParams = {};
-        // To list down jobs posted by a particular recruiter
-        if (user?.role === 'recruiter') {
-            findParams = {
-                recruiterId: new mongoose.Types.ObjectId(user.id),
-            };
-        }
-        const jobs = await Job.find({
-            //recruiterId: user?.id,
-        }).exec();
+        await dbConnect();
+
+        const jobs = await Job.find().lean().exec();
         console.log('Now', jobs);
         if (!jobs?.length) {
             return NextResponse.json('No jobs found', {
