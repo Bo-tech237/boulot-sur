@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-    NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    NavigationMenuTrigger,
-    navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu';
+
 import {
     Sheet,
     SheetContent,
@@ -19,12 +11,16 @@ import {
 import { MenuIcon } from 'lucide-react';
 import Link from 'next/link';
 import { Session } from 'next-auth';
+import { buttonVariants } from './ui/button';
+import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
 
 interface Props {
     session: Session | null;
 }
 
 function MobileNav({ session }: Props) {
+    const pathname = usePathname();
     return (
         <>
             <Sheet>
@@ -33,7 +29,7 @@ function MobileNav({ session }: Props) {
                 </SheetTrigger>
                 <SheetContent
                     side={'left'}
-                    className="w-[300px] sm:w-[540px] flex flex-col items-center justify-center"
+                    className="w-[300px] sm:w-[540px] flex flex-col items-center"
                 >
                     <SheetHeader>
                         <SheetTitle>BOULOT SUR</SheetTitle>
@@ -41,52 +37,69 @@ function MobileNav({ session }: Props) {
                             THE BEST JOB PORTAL WEB APP.
                         </SheetDescription>
                     </SheetHeader>
-                    <NavigationMenu>
-                        <NavigationMenuList className="flex flex-col gap-5 items-start justify-center">
-                            <NavigationMenuItem>
-                                <Link href="/" legacyBehavior passHref>
-                                    <NavigationMenuLink
-                                        className={navigationMenuTriggerStyle()}
-                                    >
-                                        Home
-                                    </NavigationMenuLink>
-                                </Link>
-                            </NavigationMenuItem>
-                            <NavigationMenuItem>
-                                <Link href="/jobs" legacyBehavior passHref>
-                                    <NavigationMenuLink
-                                        className={navigationMenuTriggerStyle()}
-                                    >
-                                        Jobs
-                                    </NavigationMenuLink>
-                                </Link>
-                            </NavigationMenuItem>
-                            <NavigationMenuItem>
-                                <Link href="/login" legacyBehavior passHref>
-                                    <NavigationMenuLink
-                                        className={navigationMenuTriggerStyle()}
-                                    >
-                                        Login
-                                    </NavigationMenuLink>
-                                </Link>
-                            </NavigationMenuItem>
-                            {session && (
-                                <NavigationMenuItem>
-                                    <Link
-                                        href="/dashboard"
-                                        legacyBehavior
-                                        passHref
-                                    >
-                                        <NavigationMenuLink
-                                            className={navigationMenuTriggerStyle()}
-                                        >
-                                            Dashboard
-                                        </NavigationMenuLink>
-                                    </Link>
-                                </NavigationMenuItem>
+
+                    <div className="flex flex-col items-center justify-center gap-5 mt-20">
+                        <Link
+                            href={'/'}
+                            className={cn(
+                                buttonVariants({
+                                    variant:
+                                        pathname === '/' ? 'default' : 'ghost',
+                                }),
+                                'default' && '',
+                                'justify-start text-xl'
                             )}
-                        </NavigationMenuList>
-                    </NavigationMenu>
+                        >
+                            Home
+                        </Link>
+                        <Link
+                            href={'/jobs'}
+                            className={cn(
+                                buttonVariants({
+                                    variant:
+                                        pathname === '/jobs'
+                                            ? 'default'
+                                            : 'ghost',
+                                }),
+
+                                'justify-start text-xl'
+                            )}
+                        >
+                            Jobs
+                        </Link>
+                        {session && (
+                            <Link
+                                href={'/dashboard'}
+                                className={cn(
+                                    buttonVariants({
+                                        variant:
+                                            pathname === '/dashboard'
+                                                ? 'default'
+                                                : 'ghost',
+                                    }),
+
+                                    'justify-start text-xl'
+                                )}
+                            >
+                                Dashboard
+                            </Link>
+                        )}
+                        <Link
+                            href={'/login'}
+                            className={cn(
+                                buttonVariants({
+                                    variant:
+                                        pathname === '/login'
+                                            ? 'default'
+                                            : 'ghost',
+                                }),
+
+                                'justify-start text-xl'
+                            )}
+                        >
+                            Login
+                        </Link>
+                    </div>
                 </SheetContent>
             </Sheet>
         </>

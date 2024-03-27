@@ -17,7 +17,7 @@ export function SideBarLinks({ session }: Props) {
     return (
         <nav
             className={cn(
-                'flex flex-col px-1 lg:px-2 lg:space-x-0 lg:space-y-1'
+                'flex flex-wrap justify-between gap-2 sm:flex-col px-1 lg:px-2 lg:space-x-0 lg:space-y-1'
             )}
         >
             {session?.user?.role === 'recruiter'
@@ -39,7 +39,8 @@ export function SideBarLinks({ session }: Props) {
                               )}
                           >
                               <span className="flex items-center justify-center gap-3">
-                                  <Icon /> {item.title}
+                                  <Icon className="hidden sm:block" />{' '}
+                                  {item.title}
                               </span>
                           </Link>
                       );

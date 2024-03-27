@@ -7,7 +7,7 @@ async function Profile() {
     const recruiter = await getAllRecruiters();
 
     return (
-        <div className="py-10">
+        <div className="w-full py-10">
             {recruiter.length > 0 && (
                 <DataTable columns={columns} data={recruiter} />
             )}

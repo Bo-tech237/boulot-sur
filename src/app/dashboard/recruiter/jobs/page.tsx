@@ -9,7 +9,7 @@ async function MyJobs() {
     console.log('test1', jobs);
 
     return (
-        <div className="py-10">
+        <div className="w-full py-10">
             <DataTable columns={columns} data={jobs} />
             {jobs?.success === false && (
                 <div className="text-red-600 text-xl">{jobs.message}</div>

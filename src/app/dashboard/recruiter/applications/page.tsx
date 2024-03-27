@@ -7,11 +7,11 @@ async function Application() {
     const applications = await getAllApplications();
 
     return (
-        <div className="container mx-auto py-10">
+        <div className="w-full py-10">
             {applications && (
                 <DataTable columns={columns} data={applications} />
             )}
-            {applications.success === false && (
+            {applications?.success === false && (
                 <div className="text-red-600 text-xl">
                     You have no applicant.
                 </div>
