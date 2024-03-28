@@ -26,7 +26,7 @@ export default async function SettingsLayout({
                     <SidebarNav />
                 </aside>
 
-                <div className="flex-[5] px-4 overflow-auto">
+                <div className="flex-[5] px-4">
                     <div className="flex justify-between items-center py-3">
                         <h1 className="font-bold text-xl">Boulot-Sur</h1>
                         <SignoutButton />
