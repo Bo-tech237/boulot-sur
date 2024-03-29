@@ -86,7 +86,7 @@ export function SideBarLinks({ session }: Props) {
                 </SheetTrigger>
                 <SheetContent
                     side="left"
-                    className="flex flex-col justify-center items-center"
+                    className="w-[300px] sm:w-[540px] flex flex-col justify-center items-center"
                 >
                     <nav className={cn('grid gap-6 text-lg font-medium')}>
                         {session?.user?.role === 'recruiter'
