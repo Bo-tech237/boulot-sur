@@ -1,10 +1,8 @@
 import { signOut } from '../auth';
 import { Button } from './ui/button';
 import { LucideLogOut } from 'lucide-react';
-import { useFormStatus } from 'react-dom';
 
 function SignoutButton() {
-    const { pending } = useFormStatus();
     return (
         <div>
             <form
