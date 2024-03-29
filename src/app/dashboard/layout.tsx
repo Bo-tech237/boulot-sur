@@ -1,9 +1,4 @@
 import SidebarNav from '@/components/SidebarNav';
-import {
-    ResizableHandle,
-    ResizablePanel,
-    ResizablePanelGroup,
-} from '@/components/ui/resizable';
 import { Metadata } from 'next';
 import SignoutButton from '@/components/SignoutButton';
 
@@ -21,7 +16,7 @@ export default async function SettingsLayout({
 }: SettingsLayoutProps) {
     return (
         <>
-            <main className="flex">
+            {/* <main className="flex">
                 <aside className="flex-1 hidden sm:block border-r border-t border-b rounded-r pt-7">
                     <SidebarNav />
                 </aside>
@@ -36,7 +31,15 @@ export default async function SettingsLayout({
                     </div>
                     <div className="grid">{children}</div>
                 </div>
-            </main>
+            </main> */}
+            <div className="container flex min-h-screen w-full flex-col">
+                <div className="flex justify-between items-center border rounded px-4 py-5">
+                    <SidebarNav />
+
+                    <SignoutButton />
+                </div>
+                <div className="grid">{children}</div>
+            </div>
         </>
     );
 }

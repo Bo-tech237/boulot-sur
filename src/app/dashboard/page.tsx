@@ -1,6 +1,5 @@
 import { redirect } from 'next/navigation';
 import { auth } from '../../auth';
-import { AppRating } from '@/components/ui/rating';
 
 async function DashboardPage() {
     const session = await auth();

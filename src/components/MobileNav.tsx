@@ -8,10 +8,10 @@ import {
     SheetTitle,
     SheetTrigger,
 } from '@/components/ui/sheet';
-import { MenuIcon } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import Link from 'next/link';
 import { Session } from 'next-auth';
-import { buttonVariants } from './ui/button';
+import { Button, buttonVariants } from './ui/button';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 
@@ -24,8 +24,15 @@ function MobileNav({ session }: Props) {
     return (
         <>
             <Sheet>
-                <SheetTrigger>
-                    <MenuIcon size={50} />
+                <SheetTrigger asChild>
+                    <Button
+                        variant="outline"
+                        size="icon"
+                        className="shrink-0 md:hidden"
+                    >
+                        <Menu className="h-5 w-5" />
+                        <span className="sr-only">Toggle navigation menu</span>
+                    </Button>
                 </SheetTrigger>
                 <SheetContent
                     side={'left'}
