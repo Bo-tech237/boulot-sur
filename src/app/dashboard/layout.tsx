@@ -32,7 +32,7 @@ export default async function SettingsLayout({
                     <div className="grid">{children}</div>
                 </div>
             </main> */}
-            <div className="container flex min-h-screen w-full flex-col">
+            <div className="flex min-h-screen w-full flex-col">
                 <div className="flex justify-between items-center border rounded px-4 py-5">
                     <SidebarNav />
 

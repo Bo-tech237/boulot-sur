@@ -12,7 +12,6 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { jobApiTypes } from '@/lib/jobSchema';
 import { friendlyTime } from '@/lib/friendly-time';
-import { AppRating } from './ui/rating';
 import { ShowRating } from './ui/showRating';
 
 type Props = { job: jobApiTypes };
