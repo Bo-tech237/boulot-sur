@@ -70,7 +70,7 @@ export function DataTable<TData, TValue>({
                                 .getColumn('applicant_name')
                                 ?.setFilterValue(event.target.value)
                         }
-                        className="max-w-sm"
+                        className="max-w-40 md:max-w-sm"
                     />
                 </div>
                 <DataTableViewOptions table={table} />
