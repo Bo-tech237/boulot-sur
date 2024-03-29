@@ -38,7 +38,7 @@ export default async function SettingsLayout({
 
                     <SignoutButton />
                 </div>
-                <div className="grid">{children}</div>
+                <div className="grid grid-cols-1">{children}</div>
             </div>
         </>
     );
