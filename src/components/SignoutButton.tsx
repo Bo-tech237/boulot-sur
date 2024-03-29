@@ -1,6 +1,5 @@
 import { signOut } from '../auth';
-import { Button } from './ui/button';
-import { LucideLogOut } from 'lucide-react';
+import { SubmitButton } from './SubmitButton';
 
 function SignoutButton() {
     return (
@@ -12,14 +11,7 @@ function SignoutButton() {
                     await signOut({ redirectTo: '/login' });
                 }}
             >
-                <Button
-                    className="flex gap-2 px-5 lg:px-6 lg:space-x-0 lg:space-y-1 text-sm lg:text-xl"
-                    variant="secondary"
-                    type="submit"
-                >
-                    <LucideLogOut />
-                    LogOut
-                </Button>
+                <SubmitButton />
             </form>
         </div>
     );
