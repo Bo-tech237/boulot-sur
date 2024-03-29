@@ -38,7 +38,7 @@ function MobileNav({ session }: Props) {
                         </SheetDescription>
                     </SheetHeader>
 
-                    <div className="flex flex-col items-center justify-center gap-5 mt-20">
+                    <nav className="flex flex-col items-center justify-center gap-5 mt-20">
                         <Link
                             href={'/'}
                             className={cn(
@@ -99,7 +99,7 @@ function MobileNav({ session }: Props) {
                         >
                             Login
                         </Link>
-                    </div>
+                    </nav>
                 </SheetContent>
             </Sheet>
         </>

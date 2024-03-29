@@ -18,9 +18,9 @@ function NavBar({ session }: Props) {
     const pathname = usePathname();
 
     return (
-        <div className="flex items-center gap-4 py-4">
+        <header className="flex items-center gap-4 py-4">
             {isDesktop ? (
-                <div className="flex items-center justify-center gap-3">
+                <nav className="flex items-center justify-center gap-3">
                     <Link
                         href={'/'}
                         className={cn(
@@ -76,12 +76,12 @@ function NavBar({ session }: Props) {
                     >
                         Login
                     </Link>
-                </div>
+                </nav>
             ) : (
                 <MobileNav session={session} />
             )}
             <ModeToggle />
-        </div>
+        </header>
     );
 }
 

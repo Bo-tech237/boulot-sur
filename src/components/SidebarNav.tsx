@@ -6,7 +6,7 @@ async function SidebarNav() {
     const session = await auth();
 
     return (
-        <div className="flex flex-col gap-1">
+        <div className="">
             <SideBarLinks session={session} />
         </div>
     );

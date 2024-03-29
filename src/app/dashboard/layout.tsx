@@ -34,7 +34,7 @@ export default async function SettingsLayout({
                     <div className="py-3 border rounded sm:hidden">
                         <SidebarNav />
                     </div>
-                    {children}
+                    <div className="grid">{children}</div>
                 </div>
             </main>
         </>
