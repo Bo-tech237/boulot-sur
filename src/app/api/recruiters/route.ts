@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import { recruiterTypes } from '@/lib/recruiterSchema';
 import { recruiterType } from '@/lib/userSchema';
 import { revalidatePath } from 'next/cache';
+import { emailer } from '@/email/sendEmail';
 
 export async function GET() {
     await dbConnect();
@@ -78,6 +79,8 @@ export async function POST(request: Request) {
         });
 
         if (newRecruiter) {
+            emailer.notifyUserForSignup(email, name);
+
             revalidatePath('/dashboard/recruiter/profile', 'page');
             return NextResponse.json({
                 success: true,

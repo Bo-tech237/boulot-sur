@@ -3,6 +3,7 @@ import { Applicant } from '../../../../models/Applicant';
 import { NextResponse, NextRequest } from 'next/server';
 import bcrypt from 'bcrypt';
 import { revalidatePath } from 'next/cache';
+import { emailer } from '@/email/sendEmail';
 
 export async function GET() {
     await dbConnect();
@@ -58,6 +59,8 @@ export async function POST(request: Request) {
             profile,
         });
         if (newApplicant) {
+            emailer.notifyUserForSignup(email, name);
+
             revalidatePath('/dashboard/applicant/profile', 'page');
 
             return NextResponse.json({
