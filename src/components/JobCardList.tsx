@@ -1,25 +1,49 @@
 import React from 'react';
 import JobCard from './JobCard';
 import { jobApiTypes } from '@/lib/jobSchema';
-import { getAllJobs } from '@/route.actions/jobs-actions';
+import { jobFilterValues } from '@/lib/filterJobs';
+import { Job } from '../../models/Job';
+import { handleError } from '@/utils/handleError';
 
-async function JobCardList() {
-    const jobs: jobApiTypes[] = await getAllJobs();
+interface JobCardListProps {
+    filterValues: jobFilterValues;
+}
+
+export async function getAllJobs(q: string | undefined) {
+    try {
+        const jobs: jobApiTypes[] = await Job.find({ q }).sort({
+            createdAt: -1,
+        });
+
+        if (!jobs?.length) {
+            return { success: false, message: 'No jobs found' };
+        }
+
+        return JSON.parse(JSON.stringify(jobs));
+    } catch (error) {
+        handleError(error);
+    }
+}
+
+async function JobCardList({ filterValues: { q } }: JobCardListProps) {
+    const jobs: jobApiTypes[] = await getAllJobs(q);
     console.log('action', jobs);
 
     return (
-        <div className="flex gap-2 flex-col">
-            <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                {jobs?.length > 0 &&
-                    jobs.map((job) => (
-                        <div className="py-3" key={job._id}>
-                            <JobCard job={job} />
-                        </div>
-                    ))}
-            </div>
+        <div className="grow space-y-4">
+            <div className="flex gap-2 flex-col">
+                <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                    {jobs?.length > 0 &&
+                        jobs.map((job) => (
+                            <div className="py-3" key={job._id}>
+                                <JobCard job={job} />
+                            </div>
+                        ))}
+                </div>
 
-            <div className="h-screen flex flex-col items-center justify-center text-4xl">
-                {!jobs?.length && 'No Job Available'}
+                <p className="text-2xl font-extrabold tracking-tight lg:text-3xl text-center">
+                    {!jobs?.length && 'No Jobs Found'}
+                </p>
             </div>
         </div>
     );

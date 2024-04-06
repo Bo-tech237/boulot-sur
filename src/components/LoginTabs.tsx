@@ -16,12 +16,8 @@ function LoginTabs() {
         <div>
             <Tabs defaultValue="recruiter" className="w-80 sm:w-[400px]">
                 <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="recruiter">
-                        RECRUITER ACCOUNT
-                    </TabsTrigger>
-                    <TabsTrigger value="applicant">
-                        APPLICANT ACCOUNT
-                    </TabsTrigger>
+                    <TabsTrigger value="recruiter">RECRUITER</TabsTrigger>
+                    <TabsTrigger value="applicant">APPLICANT</TabsTrigger>
                 </TabsList>
                 <TabsContent value="recruiter">
                     <Card>

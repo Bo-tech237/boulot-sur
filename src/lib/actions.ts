@@ -65,22 +65,3 @@ export async function removeImage(file: string) {
         return { success: false };
     }
 }
-
-export async function getToken() {
-    const session = await auth();
-    const user = session?.user;
-
-    try {
-        return user;
-    } catch (error) {
-        if (error instanceof AuthError) {
-            switch (error.type) {
-                case 'CredentialsSignin':
-                    return { error: 'Invalid credentials.' };
-                default:
-                    return { error: 'Something went wrong.' };
-            }
-        }
-        throw error;
-    }
-}
