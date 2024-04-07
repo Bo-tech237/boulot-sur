@@ -25,7 +25,7 @@ interface JobFilterSidebarProps {
 function JobFilterSidebar({ defaultValues }: JobFilterSidebarProps) {
     return (
         <aside className="md:w-[260px] sticky top-20 h-fit rounded-lg border p-4 mt-3">
-            <form action={filterJobs}>
+            <form action={filterJobs} key={JSON.stringify(defaultValues)}>
                 <div className="space-y-4">
                     <div className="flex flex-col gap-2">
                         <Label htmlFor="q">search</Label>

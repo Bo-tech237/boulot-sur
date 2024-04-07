@@ -1,8 +1,15 @@
 import React from 'react';
 import AddNewJob from '@/components/AddNewJob';
 import { getJobById } from '@/route.actions/jobs-actions';
+import { Metadata } from 'next';
 
 type Props = { searchParams: { id: string } };
+
+export const metadata: Metadata = {
+    title: 'Create Job',
+
+    description: 'Find your dream job in Cameroon!',
+};
 
 async function CreateJob({ searchParams }: Props) {
     const id = searchParams.id;

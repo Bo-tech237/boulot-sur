@@ -9,8 +9,11 @@ import { Toaster } from '@/components/ui/toaster';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'BOULOT-SUR',
-    description: 'Coded by Ferdinand',
+    title: {
+        default: 'Boulot Sur',
+        template: '%s|Boulot Sur',
+    },
+    description: 'Find your dream job in Cameroon!',
 };
 
 export default function RootLayout({

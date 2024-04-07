@@ -2,6 +2,13 @@ import React from 'react';
 import { DataTable } from './data-table';
 import { columns } from './columns';
 import { getAllApplications } from '@/route.actions/applications-actions';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Applications',
+
+    description: 'Find your dream job in Cameroon!',
+};
 
 async function Applications() {
     const applications = await getAllApplications();

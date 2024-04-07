@@ -9,7 +9,7 @@ export default async function SingleJobPage({ params }: Props) {
     const id = params.id;
     const job: jobApiTypes = await getJobById(id);
     return (
-        <div className="">
+        <div className="my-10">
             <JobDetail job={job} />
         </div>
     );

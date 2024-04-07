@@ -3,6 +3,13 @@ import React from 'react';
 import { DataTable } from './data-table';
 import { columns } from './columns';
 import { getRecruitersJobs } from '@/route.actions/jobs-actions';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'My Jobs',
+
+    description: 'Find your dream job in Cameroon!',
+};
 
 async function MyJobs() {
     const jobs = await getRecruitersJobs();

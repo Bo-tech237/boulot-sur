@@ -1,5 +1,12 @@
 import React from 'react';
 import RegisterTabs from '@/components/RegisterTabs';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Register',
+
+    description: 'Find your dream job in Cameroon!',
+};
 
 function RegisterPage() {
     return (

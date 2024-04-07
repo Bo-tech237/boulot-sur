@@ -12,7 +12,7 @@ interface JobCardListProps {
 
 export async function getAllJobs(q: any) {
     const regex = new RegExp(q, 'i');
-    console.log('q', q);
+
     let filter = {};
     try {
         await dbConnect();
@@ -24,7 +24,7 @@ export async function getAllJobs(q: any) {
         const jobs: jobApiTypes[] = await Job.find(filter).sort({
             createdAt: -1,
         });
-        console.log('results', jobs);
+
         if (!jobs?.length) {
             return { success: false, message: 'No jobs found' };
         }

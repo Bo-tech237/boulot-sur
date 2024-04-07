@@ -5,16 +5,27 @@ import JobFilterSidebar from '@/components/JobFilterSidebar';
 import H1 from '@/components/ui/h1';
 import { jobFilterValues } from '@/lib/filterJobs';
 
-export const metadata: Metadata = {
-    title: 'Jobs',
-    description: 'Coded by Ferdinand',
-};
-
 interface PageProps {
     searchParams: {
         q?: string;
     };
 }
+
+// function getTitle({ q }: jobFilterValues) {
+//     const titlePrefix = q ? `${q} jobs` : 'Reliable jobs';
+
+//     return titlePrefix;
+// }
+
+// export function generateMetadata({ searchParams: { q } }: PageProps): Metadata {
+//     return { title: `${getTitle({ q })} | Boulot Sur` };
+// }
+
+export const metadata: Metadata = {
+    title: 'All Jobs',
+
+    description: 'Find your dream job in Cameroon!',
+};
 
 function JobsPage({ searchParams: { q } }: PageProps) {
     const filterValues: jobFilterValues = { q };

@@ -2,6 +2,13 @@ import { getAllApplicants } from '@/route.actions/applicants-actions';
 import { columns } from './columns';
 import { DataTable } from './data-table';
 import { applicantApiTypes } from '@/lib/applicantSchema';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Profile',
+
+    description: 'Find your dream job in Cameroon!',
+};
 
 async function Profile() {
     const applicant = await getAllApplicants();

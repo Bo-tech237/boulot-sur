@@ -3,14 +3,28 @@ import { jobApiTypes } from '@/lib/jobSchema';
 import JobApplyDialog from './JobApplyDialog';
 import { Button } from './ui/button';
 import Link from 'next/link';
+import { Metadata } from 'next';
+import H1 from './ui/h1';
 
 type Props = { job: jobApiTypes };
 
+// let singleJob: any = {};
+
+// // export function generateMetadata(): Metadata {
+// //     return { title: `${singleJob?.tile}` };
+// // }
+
+// export const metadata: Metadata = {
+//     title: `${singleJob?.title}`,
+
+//     description: 'Find your dream job in Cameroon!',
+// };
+
 function JobDetail({ job }: Props) {
     return (
-        <div className="container">
+        <div className="">
             <div className="flex flex-col gap-5">
-                <h1>{job.title}</h1>
+                <H1>{job.title}</H1>
                 <div className="w-full flex flex-wrap gap-3 sm:gap-5">
                     <div className="bg-blue-500 w-32 h-16 rounded-lg flex flex-col items-center justify-center">
                         <span className="">Max Applicants</span>

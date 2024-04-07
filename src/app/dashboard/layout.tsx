@@ -3,8 +3,11 @@ import { Metadata } from 'next';
 import SignoutButton from '@/components/SignoutButton';
 
 export const metadata: Metadata = {
-    title: 'Boulot-Sur/Dashboard',
-    description: 'Best Job Portal App',
+    title: {
+        default: 'Dashboard',
+        template: 'Dashboard|%s',
+    },
+    description: 'Find your dream job in Cameroon!',
 };
 
 interface SettingsLayoutProps {
