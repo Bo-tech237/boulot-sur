@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { cache } from 'react';
 import JobCard from './JobCard';
 import { jobApiTypes } from '@/lib/jobSchema';
 import { jobFilterValues } from '@/lib/filterJobs';
@@ -10,7 +10,7 @@ interface JobCardListProps {
     filterValues: jobFilterValues;
 }
 
-export async function getAllJobs(q: any) {
+const getAllJobs = cache(async (q: any) => {
     const regex = new RegExp(q, 'i');
 
     let filter = {};
@@ -33,7 +33,7 @@ export async function getAllJobs(q: any) {
     } catch (error) {
         handleError(error);
     }
-}
+});
 
 async function JobCardList({ filterValues: { q } }: JobCardListProps) {
     const jobs: jobApiTypes[] = await getAllJobs(q);
