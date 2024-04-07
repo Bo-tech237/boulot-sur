@@ -3,22 +3,9 @@ import { jobApiTypes } from '@/lib/jobSchema';
 import JobApplyDialog from './JobApplyDialog';
 import { Button } from './ui/button';
 import Link from 'next/link';
-import { Metadata } from 'next';
 import H1 from './ui/h1';
 
 type Props = { job: jobApiTypes };
-
-// let singleJob: any = {};
-
-// // export function generateMetadata(): Metadata {
-// //     return { title: `${singleJob?.tile}` };
-// // }
-
-// export const metadata: Metadata = {
-//     title: `${singleJob?.title}`,
-
-//     description: 'Find your dream job in Cameroon!',
-// };
 
 function JobDetail({ job }: Props) {
     return (
