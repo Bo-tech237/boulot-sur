@@ -1,7 +1,6 @@
 import React from 'react';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
-import { Button } from './ui/button';
 import { jobFilterSchema, jobFilterValues } from '@/lib/filterJobs';
 import { redirect } from 'next/navigation';
 import FormSubmitButton from './FormSubmitButton';
