@@ -10,6 +10,7 @@ const jobSchema = new Schema(
         title: {
             type: String,
             required: true,
+            uppercase: true,
         },
         maxApplicants: {
             type: Number,
