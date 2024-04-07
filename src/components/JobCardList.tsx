@@ -10,14 +10,15 @@ interface JobCardListProps {
     filterValues: jobFilterValues;
 }
 
-export async function getAllJobs(q: string | undefined) {
+export async function getAllJobs(q: any) {
+    const regex = new RegExp(q, 'i');
     console.log('q', q);
     let filter = {};
     try {
         await dbConnect();
 
         if (q) {
-            filter = { title: q };
+            filter = { title: { $regex: regex } };
         }
 
         const jobs: jobApiTypes[] = await Job.find(filter).sort({
