@@ -11,12 +11,19 @@ interface JobCardListProps {
 }
 
 export async function getAllJobs(q: string | undefined) {
+    console.log('q', q);
+    let filter = {};
     try {
         await dbConnect();
-        const jobs: jobApiTypes[] = await Job.find({ q }).sort({
+
+        if (q) {
+            filter = { title: q };
+        }
+
+        const jobs: jobApiTypes[] = await Job.find(filter).sort({
             createdAt: -1,
         });
-
+        console.log('results', jobs);
         if (!jobs?.length) {
             return { success: false, message: 'No jobs found' };
         }
