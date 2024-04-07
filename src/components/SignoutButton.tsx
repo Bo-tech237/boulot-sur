@@ -1,5 +1,5 @@
 import { signOut } from '../auth';
-import { SubmitButton } from './SubmitButton';
+import FormSubmitButton from './FormSubmitButton';
 
 function SignoutButton() {
     return (
@@ -11,7 +11,7 @@ function SignoutButton() {
                     await signOut({ redirectTo: '/login' });
                 }}
             >
-                <SubmitButton />
+                <FormSubmitButton>LogOut</FormSubmitButton>
             </form>
         </div>
     );
