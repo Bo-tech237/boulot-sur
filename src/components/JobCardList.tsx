@@ -4,6 +4,7 @@ import { jobApiTypes } from '@/lib/jobSchema';
 import { jobFilterValues } from '@/lib/filterJobs';
 import { Job } from '../../models/Job';
 import { handleError } from '@/utils/handleError';
+import dbConnect from '@/lib/dbConfig';
 
 interface JobCardListProps {
     filterValues: jobFilterValues;
@@ -11,6 +12,7 @@ interface JobCardListProps {
 
 export async function getAllJobs(q: string | undefined) {
     try {
+        await dbConnect();
         const jobs: jobApiTypes[] = await Job.find({ q }).sort({
             createdAt: -1,
         });
