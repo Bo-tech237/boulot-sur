@@ -29,7 +29,7 @@ function JobCard({ job }: Props) {
                         <p>Max positions: {job.maxPositions}</p>
                         <p>Location: {job.location}</p>
                         <p>Duration: {job.duration}</p>
-                        <p>Salary: {job.salary}FCFA</p>
+                        <p>Salary: {job.salary} FCFA</p>
                         <p>
                             Posted On: {friendlyTime(new Date(job.createdAt))}
                         </p>
