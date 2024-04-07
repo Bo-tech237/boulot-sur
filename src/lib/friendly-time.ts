@@ -24,3 +24,10 @@ export function friendlyTime(date: Date) {
     }
     return Math.floor(seconds) + ' seconds ago';
 }
+
+export function formatMoney(amount: number) {
+    return new Intl.NumberFormat('fr-CEMAC', {
+        style: 'currency',
+        currency: 'XAF',
+    }).format(amount);
+}

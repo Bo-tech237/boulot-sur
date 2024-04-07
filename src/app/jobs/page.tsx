@@ -25,7 +25,7 @@ function JobsPage({ searchParams: { q } }: PageProps) {
                 <H1>Reliable jobs</H1>
                 <p className="text-muted-foreground">Find your dream job.</p>
             </div>
-            <section className="flex flex-col gap-4 md:flex-row">
+            <section className="flex flex-col gap-4 sm:flex-row">
                 <JobFilterSidebar defaultValues={filterValues} />
                 <JobCardList filterValues={filterValues} />
             </section>

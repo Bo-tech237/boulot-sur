@@ -42,7 +42,7 @@ async function JobCardList({ filterValues: { q } }: JobCardListProps) {
     return (
         <div className="grow space-y-4">
             <div className="flex gap-2 flex-col">
-                <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="grid gap-2 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                     {jobs?.length > 0 &&
                         jobs.map((job) => (
                             <div className="py-3" key={job._id}>
