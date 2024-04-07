@@ -17,10 +17,10 @@ export function SideBarLinks({ session }: Props) {
     const pathname = usePathname();
 
     return (
-        <header className="sticky left-0">
+        <header className="">
             <nav
                 className={cn(
-                    'hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6'
+                    'flex flex-wrap gap-6 text-sm font-medium md:flex-col md:items-start'
                 )}
             >
                 {session?.user?.role === 'recruiter'
@@ -42,7 +42,7 @@ export function SideBarLinks({ session }: Props) {
                                   )}
                               >
                                   <span className="flex items-center justify-center gap-3">
-                                      <Icon className="hidden sm:hidden" />{' '}
+                                      <Icon className="hidden sm:block" />{' '}
                                       {item.title}
                                   </span>
                               </Link>
@@ -66,14 +66,14 @@ export function SideBarLinks({ session }: Props) {
                                   )}
                               >
                                   <span className="flex items-center justify-center gap-3">
-                                      <Icon className="hidden sm:hidden" />{' '}
+                                      <Icon className="hidden sm:block" />{' '}
                                       {item.title}
                                   </span>
                               </Link>
                           );
                       })}
             </nav>
-            <Sheet>
+            {/* <Sheet>
                 <SheetTrigger asChild>
                     <Button
                         variant="outline"
@@ -140,7 +140,7 @@ export function SideBarLinks({ session }: Props) {
                               })}
                     </nav>
                 </SheetContent>
-            </Sheet>
+            </Sheet> */}
         </header>
     );
 }

@@ -19,8 +19,8 @@ export default async function SettingsLayout({
 }: SettingsLayoutProps) {
     return (
         <>
-            {/* <main className="flex">
-                <aside className="flex-1 hidden sm:block border-r border-t border-b rounded-r pt-7">
+            <main className="flex">
+                <aside className="flex-1 hidden md:block border px-4 pt-7">
                     <SidebarNav />
                 </aside>
 
@@ -29,20 +29,20 @@ export default async function SettingsLayout({
                         <h1 className="font-bold text-xl">Boulot-Sur</h1>
                         <SignoutButton />
                     </div>
-                    <div className="py-3 border rounded sm:hidden">
+                    <div className="p-3 border rounded md:hidden">
                         <SidebarNav />
                     </div>
-                    <div className="grid">{children}</div>
+                    <div className="grid grid-cols-1">{children}</div>
                 </div>
-            </main> */}
-            <div className="flex min-h-screen w-full flex-col">
-                <div className="flex justify-between items-center border rounded px-4 py-5">
+            </main>
+            {/* <div className="flex min-h-screen w-full flex-col">
+                <div className="flex justify-between items-center sticky top-10 border rounded px-4 py-5">
                     <SidebarNav />
 
                     <SignoutButton />
                 </div>
                 <div className="grid grid-cols-1">{children}</div>
-            </div>
+            </div> */}
         </>
     );
 }
