@@ -24,6 +24,27 @@ const getJobById = cache(async (id: string) => {
     }
 });
 
+const getAllJobs = cache(async () => {
+    try {
+        await dbConnect();
+
+        const jobs: jobApiTypes[] = await Job.find().exec();
+
+        if (!jobs?.length) {
+            return { success: false, message: 'No jobs found' };
+        }
+
+        return JSON.parse(JSON.stringify(jobs));
+    } catch (error) {
+        handleError(error);
+    }
+});
+
+export async function generateStaticParams() {
+    const jobs: jobApiTypes[] = await getAllJobs();
+    return jobs.map(({ _id }) => _id);
+}
+
 export async function generateMetadata({
     params: { id },
 }: PageProps): Promise<Metadata> {
