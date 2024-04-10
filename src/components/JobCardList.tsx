@@ -5,35 +5,68 @@ import { jobFilterValues } from '@/lib/filterJobs';
 import { Job } from '../../models/Job';
 import { handleError } from '@/utils/handleError';
 import dbConnect from '@/lib/dbConfig';
+import { unstable_cache as nextCache } from 'next/cache';
+import { myCache } from '@/lib/cache';
 
 interface JobCardListProps {
     filterValues: jobFilterValues;
 }
 
-const getAllJobs = cache(async (q: any) => {
-    const regex = new RegExp(q, 'i');
+const getAllJobs = myCache(
+    async (q: any) => {
+        const regex = new RegExp(q, 'i');
 
-    let filter = {};
-    try {
-        await dbConnect();
+        let filter = {};
+        try {
+            await dbConnect();
 
-        if (q) {
-            filter = { title: { $regex: regex } };
+            if (q) {
+                filter = { title: { $regex: regex } };
+            }
+
+            const jobs: jobApiTypes[] = await Job.find(filter).sort({
+                createdAt: -1,
+            });
+
+            if (!jobs?.length) {
+                return { success: false, message: 'No jobs found' };
+            }
+
+            return JSON.parse(JSON.stringify(jobs));
+        } catch (error) {
+            handleError(error);
         }
+    },
+    ['getAllJobs']
+);
 
-        const jobs: jobApiTypes[] = await Job.find(filter).sort({
-            createdAt: -1,
-        });
+// const getAllJobs = nextCache(
+//     cache(async (q: any) => {
+//         const regex = new RegExp(q, 'i');
 
-        if (!jobs?.length) {
-            return { success: false, message: 'No jobs found' };
-        }
+//         let filter = {};
+//         try {
+//             await dbConnect();
 
-        return JSON.parse(JSON.stringify(jobs));
-    } catch (error) {
-        handleError(error);
-    }
-});
+//             if (q) {
+//                 filter = { title: { $regex: regex } };
+//             }
+
+//             const jobs: jobApiTypes[] = await Job.find(filter).sort({
+//                 createdAt: -1,
+//             });
+
+//             if (!jobs?.length) {
+//                 return { success: false, message: 'No jobs found' };
+//             }
+
+//             return JSON.parse(JSON.stringify(jobs));
+//         } catch (error) {
+//             handleError(error);
+//         }
+//     }),
+//     ['getAllJobs']
+// );
 
 async function JobCardList({ filterValues: { q } }: JobCardListProps) {
     const jobs: jobApiTypes[] = await getAllJobs(q);
