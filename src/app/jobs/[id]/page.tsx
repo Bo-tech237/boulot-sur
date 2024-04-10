@@ -24,11 +24,11 @@ const getJobById = cache(async (id: string) => {
     }
 });
 
-const getAllJobs = cache(async () => {
+const getAllJobs = async () => {
     try {
         await dbConnect();
 
-        const jobs: jobApiTypes[] = await Job.find().exec();
+        const jobs: jobApiTypes[] = await Job.find();
 
         if (!jobs?.length) {
             return { success: false, message: 'No jobs found' };
@@ -38,10 +38,11 @@ const getAllJobs = cache(async () => {
     } catch (error) {
         handleError(error);
     }
-});
+};
 
 export async function generateStaticParams() {
     const jobs: jobApiTypes[] = await getAllJobs();
+    console.log('now', jobs);
     return jobs.map(({ _id }) => _id);
 }
 
