@@ -31,7 +31,7 @@ const getAllJobs = myCache(
             if (!jobs?.length) {
                 return { success: false, message: 'No jobs found' };
             }
-
+            console.log('nowgo:', jobs);
             return JSON.parse(JSON.stringify(jobs));
         } catch (error) {
             handleError(error);
