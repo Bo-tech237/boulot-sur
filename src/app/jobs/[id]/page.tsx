@@ -9,25 +9,22 @@ import { myCache } from '@/lib/cache';
 
 type PageProps = { params: { id: string } };
 
-const getJobById = myCache(
-    async (id: string) => {
-        await dbConnect();
+const getJobById = cache(async (id: string) => {
+    await dbConnect();
 
-        try {
-            const job = await Job.findById(id).exec();
-            if (!job) {
-                return { success: false, message: 'No job found' };
-            }
-
-            return JSON.parse(JSON.stringify(job));
-        } catch (error) {
-            handleError(error);
+    try {
+        const job = await Job.findById(id).exec();
+        if (!job) {
+            return { success: false, message: 'No job found' };
         }
-    },
-    ['getJobById']
-);
 
-const getAllJobs = myCache(async () => {
+        return JSON.parse(JSON.stringify(job));
+    } catch (error) {
+        handleError(error);
+    }
+});
+
+const getAllJobs = cache(async () => {
     try {
         await dbConnect();
 
@@ -43,7 +40,7 @@ const getAllJobs = myCache(async () => {
     } catch (error) {
         handleError(error);
     }
-}, ['getAllJobs']);
+});
 
 export async function generateStaticParams() {
     const jobs: jobApiTypes[] = await getAllJobs();
