@@ -5,26 +5,29 @@ import { Metadata } from 'next';
 import dbConnect from '@/lib/dbConfig';
 import { Job } from '../../../../models/Job';
 import { handleError } from '@/utils/handleError';
-import { myCache } from '@/lib/cache';
+import { unstable_cache as nextCache } from 'next/cache';
 
 type PageProps = { params: { id: string } };
 
-const getJobById = cache(async (id: string) => {
-    await dbConnect();
+const getJobById = nextCache(
+    async (id: string) => {
+        await dbConnect();
 
-    try {
-        const job = await Job.findById(id).exec();
-        if (!job) {
-            return { success: false, message: 'No job found' };
+        try {
+            const job = await Job.findById(id).exec();
+            if (!job) {
+                return { success: false, message: 'No job found' };
+            }
+
+            return JSON.parse(JSON.stringify(job));
+        } catch (error) {
+            handleError(error);
         }
+    },
+    ['getJobById']
+);
 
-        return JSON.parse(JSON.stringify(job));
-    } catch (error) {
-        handleError(error);
-    }
-});
-
-const getAllJobs = cache(async () => {
+const getAllJobs = nextCache(async () => {
     try {
         await dbConnect();
 
@@ -34,17 +37,15 @@ const getAllJobs = cache(async () => {
             return { success: false, message: 'No jobs found' };
         }
 
-        console.log('now1:', jobs);
-
         return JSON.parse(JSON.stringify(jobs));
     } catch (error) {
         handleError(error);
     }
-});
+}, ['getAllJobs']);
 
 export async function generateStaticParams() {
     const jobs: jobApiTypes[] = await getAllJobs();
-    return jobs?.map(({ _id }) => _id);
+    return jobs.map((job) => ({ id: job?._id }));
 }
 
 export async function generateMetadata({

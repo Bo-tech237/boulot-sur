@@ -12,7 +12,7 @@ interface JobCardListProps {
     filterValues: jobFilterValues;
 }
 
-const getAllJobs = myCache(
+const getAllJobs = nextCache(
     async (q: any) => {
         const regex = new RegExp(q, 'i');
 
