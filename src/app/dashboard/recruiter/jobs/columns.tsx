@@ -17,6 +17,7 @@ import { deleteJob } from '@/route.actions/jobs-actions';
 import Link from 'next/link';
 import DeleteDialog from '@/components/DeleteDialog';
 import { ShowRating } from '@/components/ui/showRating';
+import { formatMoney } from '@/lib/friendly-time';
 
 export const columns: ColumnDef<jobApiTypes>[] = [
     {
@@ -92,10 +93,7 @@ export const columns: ColumnDef<jobApiTypes>[] = [
         ),
         cell: ({ row }) => {
             const salary = parseFloat(row.getValue('salary'));
-            const formatted = new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-            }).format(salary);
+            const formatted = formatMoney(salary);
 
             return <div className="font-medium">{formatted}</div>;
         },

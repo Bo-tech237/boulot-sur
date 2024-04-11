@@ -4,6 +4,7 @@ import JobApplyDialog from './JobApplyDialog';
 import { Button } from './ui/button';
 import Link from 'next/link';
 import H1 from './ui/h1';
+import { formatMoney } from '@/lib/friendly-time';
 
 type Props = { job: jobApiTypes };
 
@@ -27,7 +28,7 @@ function JobDetail({ job }: Props) {
                     </div>
                     <div className="bg-blue-500 w-32 h-16 rounded-lg flex flex-col items-center justify-center">
                         <span className="">Salary</span>
-                        <p className="">${job.salary}</p>
+                        <p className="">{formatMoney(job.salary)}</p>
                     </div>
                     <div className="bg-blue-500 w-32 h-16 rounded-lg flex flex-col items-center justify-center">
                         <span className="">Applied</span>
