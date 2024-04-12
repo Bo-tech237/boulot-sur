@@ -7,13 +7,18 @@ import { handleError } from '@/utils/handleError';
 import dbConnect from '@/lib/dbConfig';
 import { unstable_cache as nextCache } from 'next/cache';
 import { myCache } from '@/lib/cache';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { Button } from './ui/button';
 
 interface JobCardListProps {
     filterValues: jobFilterValues;
+    page?: number;
 }
 
 const getAllJobs = nextCache(
-    async (q: any) => {
+    async (q, skip, jobsPerPage: any) => {
         const regex = new RegExp(q, 'i');
 
         let filter = {};
@@ -24,15 +29,26 @@ const getAllJobs = nextCache(
                 filter = { title: { $regex: regex } };
             }
 
-            const jobs: jobApiTypes[] = await Job.find(filter).sort({
-                createdAt: -1,
-            });
+            const jobsPromise = Job.find(filter)
+                .sort({
+                    createdAt: -1,
+                })
+                .skip(skip)
+                .limit(jobsPerPage)
+                .exec();
+
+            const countPromise = Job.countDocuments(filter);
+
+            const [jobs, totalCount] = await Promise.all([
+                jobsPromise,
+                countPromise,
+            ]);
 
             if (!jobs?.length) {
                 return { success: false, message: 'No jobs found' };
             }
-            console.log('nowgo:', jobs);
-            return JSON.parse(JSON.stringify(jobs));
+            console.log('nowgo:', jobs, totalCount);
+            return JSON.parse(JSON.stringify({ jobs, totalCount }));
         } catch (error) {
             handleError(error);
         }
@@ -68,8 +84,14 @@ const getAllJobs = nextCache(
 //     ['getAllJobs']
 // );
 
-async function JobCardList({ filterValues: { q } }: JobCardListProps) {
-    const jobs: jobApiTypes[] = await getAllJobs(q);
+async function JobCardList({ filterValues, page = 1 }: JobCardListProps) {
+    const { q } = filterValues;
+
+    const jobsPerPage = 3;
+    const skip = (page - 1) * jobsPerPage;
+
+    const { jobs, totalCount }: { jobs: jobApiTypes[]; totalCount: number } =
+        await getAllJobs(q, skip, jobsPerPage);
     console.log('action', jobs);
 
     return (
@@ -87,7 +109,62 @@ async function JobCardList({ filterValues: { q } }: JobCardListProps) {
                 <p className="text-2xl font-extrabold tracking-tight lg:text-3xl text-center">
                     {!jobs?.length && 'No Jobs Found'}
                 </p>
+
+                {jobs?.length > 0 && (
+                    <Pagination
+                        currentPage={page}
+                        totalPages={Math.ceil(totalCount / jobsPerPage)}
+                        filterValues={filterValues}
+                    />
+                )}
             </div>
+        </div>
+    );
+}
+
+interface PaginationProps {
+    currentPage: number;
+    totalPages: number;
+    filterValues: jobFilterValues;
+}
+
+function Pagination({
+    currentPage,
+    totalPages,
+    filterValues: { q },
+}: PaginationProps) {
+    function generatePageLink(page: number) {
+        const searchParams = new URLSearchParams({
+            ...(q && { q }),
+            page: page.toString(),
+        });
+
+        return `/jobs?${searchParams.toString()}`;
+    }
+
+    return (
+        <div className="flex justify-between">
+            <Button className={cn(currentPage <= 1 && 'invisible')}>
+                <Link
+                    href={generatePageLink(currentPage - 1)}
+                    className="flex items-center gap-2 font-semibold"
+                >
+                    <ArrowLeft size={16} />
+                    Previous page
+                </Link>
+            </Button>
+            <span className="font-semibold">
+                Page {currentPage} of {totalPages}
+            </span>
+            <Button className={cn(currentPage >= totalPages && 'invisible')}>
+                <Link
+                    href={generatePageLink(currentPage + 1)}
+                    className="flex items-center gap-2 font-semibold"
+                >
+                    Next page
+                    <ArrowRight size={16} />
+                </Link>
+            </Button>
         </div>
     );
 }

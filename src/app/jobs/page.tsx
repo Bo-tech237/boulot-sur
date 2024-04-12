@@ -8,6 +8,7 @@ import { jobFilterValues } from '@/lib/filterJobs';
 interface PageProps {
     searchParams: {
         q?: string;
+        page?: string;
     };
 }
 
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     description: 'Find your dream job in Cameroon!',
 };
 
-function JobsPage({ searchParams: { q } }: PageProps) {
+function JobsPage({ searchParams: { q, page } }: PageProps) {
     const filterValues: jobFilterValues = { q };
 
     return (
@@ -38,7 +39,10 @@ function JobsPage({ searchParams: { q } }: PageProps) {
             </div>
             <section className="flex flex-col gap-4 sm:flex-row">
                 <JobFilterSidebar defaultValues={filterValues} />
-                <JobCardList filterValues={filterValues} />
+                <JobCardList
+                    filterValues={filterValues}
+                    page={page ? parseInt(page) : undefined}
+                />
             </section>
         </main>
     );
