@@ -56,34 +56,6 @@ const getAllJobs = nextCache(
     ['getAllJobs']
 );
 
-// const getAllJobs = nextCache(
-//     cache(async (q: any) => {
-//         const regex = new RegExp(q, 'i');
-
-//         let filter = {};
-//         try {
-//             await dbConnect();
-
-//             if (q) {
-//                 filter = { title: { $regex: regex } };
-//             }
-
-//             const jobs: jobApiTypes[] = await Job.find(filter).sort({
-//                 createdAt: -1,
-//             });
-
-//             if (!jobs?.length) {
-//                 return { success: false, message: 'No jobs found' };
-//             }
-
-//             return JSON.parse(JSON.stringify(jobs));
-//         } catch (error) {
-//             handleError(error);
-//         }
-//     }),
-//     ['getAllJobs']
-// );
-
 async function JobCardList({ filterValues, page = 1 }: JobCardListProps) {
     const { q } = filterValues;
 
