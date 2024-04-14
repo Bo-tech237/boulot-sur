@@ -14,12 +14,12 @@ function RecruiterAddJobForm1(
     form: UseFormReturn<
         {
             title: string;
+            type: string;
             maxApplicants: number;
             maxPositions: number;
             skillsets: string[];
             description: string;
             location: string;
-            duration: string;
             salary: number;
             activeApplications?: number | undefined;
             acceptedApplicants?: number | undefined;

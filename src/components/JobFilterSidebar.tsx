@@ -4,6 +4,7 @@ import { Input } from './ui/input';
 import { jobFilterSchema, jobFilterValues } from '@/lib/filterJobs';
 import { redirect } from 'next/navigation';
 import FormSubmitButton from './FormSubmitButton';
+import { jobTypes } from '@/constants/data';
 
 async function filterJobs(formData: FormData) {
     'use server';

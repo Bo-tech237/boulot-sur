@@ -15,12 +15,12 @@ function RecruiterAddJobForm3(
     form: UseFormReturn<
         {
             title: string;
+            type: string;
             maxApplicants: number;
             maxPositions: number;
             skillsets: string[];
             description: string;
             location: string;
-            duration: string;
             salary: number;
             activeApplications?: number | undefined;
             acceptedApplicants?: number | undefined;
@@ -50,6 +50,7 @@ function RecruiterAddJobForm3(
                         </FormItem>
                     )}
                 />
+
                 <FormField
                     control={form.control}
                     name="description"

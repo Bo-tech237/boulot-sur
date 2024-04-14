@@ -33,6 +33,7 @@ function AddNewJob({ job }: any) {
     const form = useForm<jobTypes>({
         resolver: zodResolver(jobSchema),
         defaultValues: {
+            type: job?.type,
             title: job?.title,
             maxApplicants: job?.maxApplicants,
             maxPositions: job?.maxPositions,
@@ -41,7 +42,6 @@ function AddNewJob({ job }: any) {
             skillsets: job?.skillsets || [],
             description: job?.description,
             location: job?.location,
-            duration: job?.duration,
             salary: job?.salary,
             rating: job?.rating,
         },

@@ -23,30 +23,10 @@ const jobSchema = new Schema(
         activeApplications: {
             type: Number,
             default: 0,
-            // validate: [
-            //     {
-            //         validator: Number.isInteger,
-            //         msg: 'activeApplications should be an integer',
-            //     },
-            //     {
-            //         validator: (value) => value >= 0,
-            //         msg: 'activeApplications should greater than equal to 0',
-            //     },
-            // ],
         },
         acceptedApplicants: {
             type: Number,
             default: 0,
-            // validate: [
-            //     {
-            //         validator: Number.isInteger,
-            //         msg: 'acceptedApplicants should be an integer',
-            //     },
-            //     {
-            //         validator: (value) => value >= 0,
-            //         msg: 'acceptedApplicants should greater than equal to 0',
-            //     },
-            // ],
         },
         skillsets: [String],
         description: {
@@ -57,13 +37,13 @@ const jobSchema = new Schema(
             type: String,
             required: true,
         },
-        duration: {
-            type: String,
-            required: true,
-        },
+        type: { type: String, required: true },
         salary: {
             type: Number,
             required: true,
+        },
+        companyLogo: {
+            type: String,
         },
         rating: {
             type: Number,

@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import { jobTypes } from '@/constants/data';
 
 export const jobSchema = z.object({
     title: z.string().min(1, { message: 'Title required' }).min(3, {
@@ -23,10 +24,14 @@ export const jobSchema = z.object({
             message: 'Description must not be longer than 160 characters.',
         }),
     location: z.string().min(1, { message: 'Location required' }),
-    duration: z.string().min(1, { message: 'Duration required' }),
+    type: z
+        .string()
+        .min(1, { message: 'Type required' })
+        .refine((value) => jobTypes.includes(value), 'Invalid job type'),
     salary: z.coerce.number().min(1, { message: 'Salary required' }),
     rating: z.coerce.number().optional(),
 });
+
 export const applyJobSchema = z.object({
     sop: z
         .string()
@@ -38,6 +43,7 @@ export const applyJobSchema = z.object({
             message: 'Description must not be longer than 160 characters.',
         }),
 });
+
 export const jobSchemaApi = jobSchema.extend({
     _id: z.string(),
     createdAt: z.string(),

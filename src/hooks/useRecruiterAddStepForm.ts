@@ -8,7 +8,7 @@ export function useRecruiterAddStepForm(steps: ReactElement[]) {
     const nextLevel = [
         { fields: ['title', 'maxApplicants', 'maxPositions'] },
         {
-            fields: ['duration', 'location', 'salary'],
+            fields: ['type', 'location', 'salary'],
         },
         {
             fields: ['skillsets', 'description'],
@@ -20,10 +20,10 @@ export function useRecruiterAddStepForm(steps: ReactElement[]) {
             title: string;
             maxApplicants: number;
             maxPositions: number;
+            type: string;
             skillsets: string[];
             description: string;
             location: string;
-            duration: string;
             salary: number;
             activeApplications?: number | undefined;
             acceptedApplicants?: number | undefined;

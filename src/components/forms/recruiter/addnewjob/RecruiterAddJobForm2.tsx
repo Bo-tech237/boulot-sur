@@ -6,20 +6,28 @@ import {
     FormLabel,
     FormMessage,
 } from '@/components/ui/form';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { UseFormReturn } from 'react-hook-form';
 import { FormWrapper } from '@/components/forms/formWrapper';
+import { jobTypes } from '@/constants/data';
 
 function RecruiterAddJobForm2(
     form: UseFormReturn<
         {
             title: string;
+            type: string;
             maxApplicants: number;
             maxPositions: number;
             skillsets: string[];
             description: string;
             location: string;
-            duration: string;
             salary: number;
             activeApplications?: number | undefined;
             acceptedApplicants?: number | undefined;
@@ -34,17 +42,30 @@ function RecruiterAddJobForm2(
             <FormWrapper title="User Details">
                 <FormField
                     control={form.control}
-                    name="duration"
+                    name="type"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Duration</FormLabel>
-                            <FormControl>
-                                <Input
-                                    type="date"
-                                    placeholder="Duration"
-                                    {...field}
-                                />
-                            </FormControl>
+                            <FormLabel>Job type</FormLabel>
+                            <Select
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                            >
+                                <FormControl>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select a Job type" />
+                                    </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                    {jobTypes.map((jobType) => (
+                                        <SelectItem
+                                            key={jobType}
+                                            value={jobType}
+                                        >
+                                            {jobType}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
                             <FormMessage />
                         </FormItem>
                     )}

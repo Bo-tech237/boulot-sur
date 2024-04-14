@@ -1,5 +1,4 @@
 import { NavItem } from '../../types';
-import { Icons } from '@/components/icons';
 
 export const recruiterNavItems: NavItem[] = [
     {
@@ -54,3 +53,5 @@ export const applicantNavItems: NavItem[] = [
         variant: 'ghost',
     },
 ];
+
+export const jobTypes = ['Full-time', 'Internship', 'part-time', 'Contract'];
