@@ -10,7 +10,7 @@ const jobSchema = new Schema(
         title: {
             type: String,
             required: true,
-            uppercase: true,
+            lowercase: true,
         },
         maxApplicants: {
             type: Number,
@@ -28,7 +28,7 @@ const jobSchema = new Schema(
             type: Number,
             default: 0,
         },
-        skillsets: [String],
+        skillsets: [{ type: String, required: true, lowercase: true }],
         description: {
             type: String,
             required: true,
@@ -36,6 +36,7 @@ const jobSchema = new Schema(
         location: {
             type: String,
             required: true,
+            lowercase: true,
         },
         type: { type: String, required: true },
         salary: {

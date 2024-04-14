@@ -35,7 +35,7 @@ function JobFilterSidebar({ defaultValues }: JobFilterSidebarProps) {
                         <Input
                             id="q"
                             name="q"
-                            placeholder="Title,Company,etc."
+                            placeholder="Title,Location,etc."
                             defaultValue={defaultValues.q}
                         />
                     </div>

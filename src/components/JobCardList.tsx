@@ -27,17 +27,16 @@ const getAllJobs = nextCache(
 
         const searchFilter = searchString
             ? {
-                  $OR: [
+                  $or: [
                       { title: { $regex: regex } },
                       { location: { $regex: regex } },
                       { type: { $regex: regex } },
-                      { salary: { $regex: regex } },
                   ],
               }
             : {};
 
         const where = {
-            $AND: [searchFilter, type ? { type } : {}],
+            $and: [searchFilter, type ? { type } : {}],
         };
         try {
             await dbConnect();
@@ -60,7 +59,7 @@ const getAllJobs = nextCache(
             if (!jobs?.length) {
                 return { success: false, message: 'No jobs found' };
             }
-            console.log('nowgo:', jobs, totalCount);
+
             return JSON.parse(JSON.stringify({ jobs, totalCount }));
         } catch (error) {
             handleError(error);
@@ -72,7 +71,7 @@ const getAllJobs = nextCache(
 async function JobCardList({ filterValues, page = 1 }: JobCardListProps) {
     const { q, type } = filterValues;
 
-    const jobsPerPage = 3;
+    const jobsPerPage = 10;
     const skip = (page - 1) * jobsPerPage;
 
     const { jobs, totalCount }: { jobs: jobApiTypes[]; totalCount: number } =
@@ -94,15 +93,14 @@ async function JobCardList({ filterValues, page = 1 }: JobCardListProps) {
                 <p className="text-2xl font-extrabold tracking-tight lg:text-3xl text-center">
                     {!jobs?.length && 'No Jobs Found'}
                 </p>
-
-                {jobs?.length > 0 && (
-                    <Pagination
-                        currentPage={page}
-                        totalPages={Math.ceil(totalCount / jobsPerPage)}
-                        filterValues={filterValues}
-                    />
-                )}
             </div>
+            {jobs?.length > 0 && (
+                <Pagination
+                    currentPage={page}
+                    totalPages={Math.ceil(totalCount / jobsPerPage)}
+                    filterValues={filterValues}
+                />
+            )}
         </div>
     );
 }
@@ -129,7 +127,7 @@ function Pagination({
 
     return (
         <div className="flex justify-between">
-            <Button className={cn(currentPage <= 1 && 'invisible')}>
+            <Button className={cn(currentPage <= 1 && 'hidden')}>
                 <Link
                     href={generatePageLink(currentPage - 1)}
                     className="flex items-center gap-2 font-semibold"
@@ -141,7 +139,7 @@ function Pagination({
             <span className="font-semibold">
                 Page {currentPage} of {totalPages}
             </span>
-            <Button className={cn(currentPage >= totalPages && 'invisible')}>
+            <Button className={cn(currentPage >= totalPages && 'hidden')}>
                 <Link
                     href={generatePageLink(currentPage + 1)}
                     className="flex items-center gap-2 font-semibold"

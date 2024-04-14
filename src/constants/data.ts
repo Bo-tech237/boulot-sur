@@ -54,4 +54,4 @@ export const applicantNavItems: NavItem[] = [
     },
 ];
 
-export const jobTypes = ['Full-time', 'Internship', 'part-time', 'Contract'];
+export const jobTypes = ['Full-time', 'Internship', 'Part-time', 'Contract'];

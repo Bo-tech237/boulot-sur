@@ -26,11 +26,9 @@ function JobCard({ job }: Props) {
                 <CardContent className="">
                     <p>Max applications: {job.maxApplicants}</p>
                     <p>Max positions: {job.maxPositions}</p>
-                    <p>Location: {job.location}</p>
-                    <p>Duration: {job.duration}</p>
+                    <p className="capitalize">Location: {job.location}</p>
                     <p>Salary: {formatMoney(job.salary)}</p>
-                    <p>Posted On: {friendlyTime(new Date(job.createdAt))}</p>
-
+                    <p>Posted: {friendlyTime(new Date(job.createdAt))}</p>
                     <p>Skills: {job.skillsets.join(', ')}</p>
 
                     <p>
