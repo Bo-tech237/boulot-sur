@@ -8,6 +8,7 @@ import { jobFilterValues } from '@/lib/filterJobs';
 interface PageProps {
     searchParams: {
         q?: string;
+        type?: string;
         page?: string;
     };
 }
@@ -28,8 +29,8 @@ export const metadata: Metadata = {
     description: 'Find your dream job in Cameroon!',
 };
 
-function JobsPage({ searchParams: { q, page } }: PageProps) {
-    const filterValues: jobFilterValues = { q };
+function JobsPage({ searchParams: { q, type, page } }: PageProps) {
+    const filterValues: jobFilterValues = { q, type };
 
     return (
         <main className="my-10 space-y-10 px-3">

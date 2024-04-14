@@ -5,15 +5,17 @@ import { jobFilterSchema, jobFilterValues } from '@/lib/filterJobs';
 import { redirect } from 'next/navigation';
 import FormSubmitButton from './FormSubmitButton';
 import { jobTypes } from '@/constants/data';
+import MySelect from './ui/myselect';
 
 async function filterJobs(formData: FormData) {
     'use server';
     const values = Object.fromEntries(formData.entries());
 
-    const { q } = jobFilterSchema.parse(values);
+    const { q, type } = jobFilterSchema.parse(values);
 
     const searchParams = new URLSearchParams({
         ...(q && { q: q.trim() }),
+        ...(type && { type }),
     });
 
     redirect(`/jobs?${searchParams.toString()}`);
@@ -36,6 +38,21 @@ function JobFilterSidebar({ defaultValues }: JobFilterSidebarProps) {
                             placeholder="Title,Company,etc."
                             defaultValue={defaultValues.q}
                         />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <Label htmlFor="type">Job type</Label>
+                        <MySelect
+                            id="type"
+                            name="type"
+                            defaultValue={defaultValues.type || ''}
+                        >
+                            <option value="">All types</option>
+                            {jobTypes.map((jobType) => (
+                                <option key={jobType} value={jobType}>
+                                    {jobType}
+                                </option>
+                            ))}
+                        </MySelect>
                     </div>
                     <FormSubmitButton className="w-full">
                         Filter Jobs

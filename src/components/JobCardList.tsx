@@ -18,18 +18,31 @@ interface JobCardListProps {
 }
 
 const getAllJobs = nextCache(
-    async (q, skip, jobsPerPage: any) => {
-        const regex = new RegExp(q, 'i');
+    async (q, type, skip, jobsPerPage: any) => {
+        const searchString = q
+            ?.split(' ')
+            .filter((word: string | any[]) => word.length > 0)
+            .join(' & ');
+        const regex = new RegExp(searchString, 'i');
 
-        let filter = {};
+        const searchFilter = searchString
+            ? {
+                  $OR: [
+                      { title: { $regex: regex } },
+                      { location: { $regex: regex } },
+                      { type: { $regex: regex } },
+                      { salary: { $regex: regex } },
+                  ],
+              }
+            : {};
+
+        const where = {
+            $AND: [searchFilter, type ? { type } : {}],
+        };
         try {
             await dbConnect();
 
-            if (q) {
-                filter = { title: { $regex: regex } };
-            }
-
-            const jobsPromise = Job.find(filter)
+            const jobsPromise = Job.find(where)
                 .sort({
                     createdAt: -1,
                 })
@@ -37,7 +50,7 @@ const getAllJobs = nextCache(
                 .limit(jobsPerPage)
                 .exec();
 
-            const countPromise = Job.countDocuments(filter);
+            const countPromise = Job.countDocuments(where);
 
             const [jobs, totalCount] = await Promise.all([
                 jobsPromise,
@@ -57,13 +70,13 @@ const getAllJobs = nextCache(
 );
 
 async function JobCardList({ filterValues, page = 1 }: JobCardListProps) {
-    const { q } = filterValues;
+    const { q, type } = filterValues;
 
     const jobsPerPage = 3;
     const skip = (page - 1) * jobsPerPage;
 
     const { jobs, totalCount }: { jobs: jobApiTypes[]; totalCount: number } =
-        await getAllJobs(q, skip, jobsPerPage);
+        await getAllJobs(q, type, skip, jobsPerPage);
     console.log('action', jobs);
 
     return (
