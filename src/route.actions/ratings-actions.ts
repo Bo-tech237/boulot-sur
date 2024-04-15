@@ -440,7 +440,7 @@ export async function deleteRating(ratingId: string) {
         if (user?.role !== 'recruiter') {
             return {
                 success: false,
-                message: 'You have no permissions to ratings',
+                message: 'You have no permissions to delete ratings',
             };
         }
 

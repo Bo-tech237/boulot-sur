@@ -5,6 +5,7 @@ import { handleError } from '@/utils/handleError';
 import { auth } from '@/auth';
 import { applicantTypes } from '@/lib/applicantSchema';
 import { revalidatePath } from 'next/cache';
+import { Application } from '../../models/Application';
 
 export async function getAllApplicants() {
     await dbConnect();
@@ -169,7 +170,7 @@ export async function deleteApplicant(applicantId: string) {
     const user = session?.user;
 
     try {
-        if (user?.role !== 'admin') {
+        if (user?.role !== 'applicant') {
             return {
                 success: false,
                 message: 'You have no permissions to delete a applicant',
@@ -182,6 +183,21 @@ export async function deleteApplicant(applicantId: string) {
             };
         }
 
+        // Check any active application
+        const acceptedApplications = await Application.countDocuments({
+            applicantId,
+            status: 'accepted',
+        });
+
+        console.log('acceptedApplication for delete', acceptedApplications);
+
+        if (acceptedApplications > 0) {
+            return {
+                success: false,
+                message: `${user.name} you can't delete your account now because your job is still on going.`,
+            };
+        }
+
         const applicant = await Applicant.findById(applicantId).exec();
         if (!applicant) {
             return {
@@ -189,6 +205,10 @@ export async function deleteApplicant(applicantId: string) {
                 message: 'Recruiter not found',
             };
         }
+
+        const applications = await Application.find({ applicantId })
+            .lean()
+            .exec();
 
         const deletedRecruiter = await applicant.deleteOne();
 
@@ -199,9 +219,19 @@ export async function deleteApplicant(applicantId: string) {
             };
         }
 
+        // delete all applicant applications
+        const deletedApplications = applications.map(
+            async (application) => await application.deleteOne()
+        );
+
+        console.log(
+            'application deleted after applicant deletion',
+            deletedApplications
+        );
+
         return {
             success: true,
-            message: `Recruiter '${applicant.name}' deleted`,
+            message: `Applicant '${applicant.name}' deleted`,
         };
     } catch (error) {
         handleError(error);
