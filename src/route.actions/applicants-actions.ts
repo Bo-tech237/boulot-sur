@@ -6,18 +6,16 @@ import { auth } from '@/auth';
 import { applicantTypes } from '@/lib/applicantSchema';
 import { revalidatePath } from 'next/cache';
 import { Application } from '../../models/Application';
+import { Rating } from '../../models/Rating';
+import { emailer } from '@/email/sendEmail';
 
 export async function getAllApplicants() {
     await dbConnect();
     const session = await auth();
     const user = session?.user;
-    let filter = {};
+    const filter = user?.role === 'applicant' ? { email: user.email } : {};
 
     try {
-        if (user?.role === 'applicant') {
-            filter = { email: user.email };
-        }
-
         const applicants = await Applicant.find(filter)
             .select('-password')
             .lean()
@@ -210,6 +208,13 @@ export async function deleteApplicant(applicantId: string) {
             .lean()
             .exec();
 
+        const ratings = await Rating.find({
+            receiverId: applicantId,
+            category: 'applicant',
+        })
+            .lean()
+            .exec();
+
         const deletedRecruiter = await applicant.deleteOne();
 
         if (!deletedRecruiter) {
@@ -224,10 +229,23 @@ export async function deleteApplicant(applicantId: string) {
             async (application) => await application.deleteOne()
         );
 
+        const deletedRatings = ratings.map(
+            async (rating) => await rating.deleteOne()
+        );
+
         console.log(
-            'application deleted after applicant deletion',
+            'Application deleted after applicant deletion',
             deletedApplications
         );
+
+        console.log('Ratings deleted after recruiter deletion', deletedRatings);
+
+        emailer.notifyUserForDeletedAccount(user?.email, user?.name);
+
+        revalidatePath('/jobs');
+        revalidatePath('/dashboard/recruiter/jobs', 'page');
+        revalidatePath('/dashboard/recruiter/applications', 'page');
+        revalidatePath('/dashboard/applicant/applications', 'page');
 
         return {
             success: true,

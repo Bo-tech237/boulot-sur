@@ -19,6 +19,7 @@ import { deleteApplication } from '@/route.actions/applications-actions';
 import UpdateDialog from '@/components/UpdateDialog';
 import RatingDialog from '@/components/RatingDialog';
 import { updateRatings } from '@/route.actions/ratings-actions';
+import { ShowRating } from '@/components/ui/showRating';
 
 export const columns: ColumnDef<any>[] = [
     {
@@ -84,6 +85,19 @@ export const columns: ColumnDef<any>[] = [
                         <Download /> <span className="text-xl">PDF</span>
                     </Link>
                 </Button>
+            );
+        },
+    },
+    {
+        accessorKey: 'rating',
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Rating" />
+        ),
+        cell: ({ row }) => {
+            return (
+                <div>
+                    <ShowRating userRating={row.getValue('rating')} />
+                </div>
             );
         },
     },

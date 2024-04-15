@@ -158,8 +158,6 @@ export const columns: ColumnDef<jobApiTypes>[] = [
                                 Update
                             </Link>
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>View details</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             );

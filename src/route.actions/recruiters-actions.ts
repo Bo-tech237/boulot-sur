@@ -7,18 +7,16 @@ import { auth } from '@/auth';
 import { revalidatePath } from 'next/cache';
 import { Job } from '../../models/Job';
 import { Application } from '../../models/Application';
+import { Rating } from '../../models/Rating';
+import { emailer } from '@/email/sendEmail';
 
 export async function getAllRecruiters() {
     await dbConnect();
     const session = await auth();
     const user = session?.user;
-    let filter = {};
+    const filter = user?.role === 'recruiter' ? { email: user.email } : {};
 
     try {
-        if (user?.role === 'recruiter') {
-            filter = { email: user.email };
-        }
-
         const recruiters = await Recruiter.find(filter)
             .select('-password')
             .lean()
@@ -205,6 +203,10 @@ export async function deleteRecruiter(recruiterId: string) {
             .lean()
             .exec();
 
+        const ratings = await Rating.find({ recruiterId, category: 'job' })
+            .lean()
+            .exec();
+
         const deletedRecruiter = await recruiter.deleteOne();
 
         if (!deletedRecruiter) {
@@ -222,12 +224,20 @@ export async function deleteRecruiter(recruiterId: string) {
             async (application) => await application.deleteOne()
         );
 
+        const deletedRatings = ratings.map(
+            async (rating) => await rating.deleteOne()
+        );
+
         console.log('Job deleted after recruiter deletion', deletedJobs);
 
         console.log(
-            'application deleted after recruiter deletion',
+            'Applications deleted after recruiter deletion',
             deletedApplications
         );
+
+        console.log('Ratings deleted after recruiter deletion', deletedRatings);
+
+        emailer.notifyUserForDeletedAccount(user?.email, user?.name);
 
         revalidatePath('/jobs');
         revalidatePath('/dashboard/recruiter/jobs', 'page');
