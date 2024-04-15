@@ -15,6 +15,8 @@ import { MoreHorizontal } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import Link from 'next/link';
 import { ShowRating } from '@/components/ui/showRating';
+import DeleteDialog from '@/components/DeleteDialog';
+import { deleteRecruiter } from '@/route.actions/recruiters-actions';
 
 export const columns: ColumnDef<recruiterApiTypes>[] = [
     {
@@ -113,8 +115,13 @@ export const columns: ColumnDef<recruiterApiTypes>[] = [
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => alert(recruiter._id)}>
-                            Delete
+                        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                            <DeleteDialog
+                                id={recruiter?._id}
+                                action={deleteRecruiter}
+                            >
+                                Delete
+                            </DeleteDialog>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>

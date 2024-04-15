@@ -5,6 +5,8 @@ import { recruiterTypes } from '@/lib/recruiterSchema';
 import { handleError } from '@/utils/handleError';
 import { auth } from '@/auth';
 import { revalidatePath } from 'next/cache';
+import { Job } from '../../models/Job';
+import { Application } from '../../models/Application';
 
 export async function getAllRecruiters() {
     await dbConnect();
@@ -162,7 +164,7 @@ export async function deleteRecruiter(recruiterId: string) {
     const user = session?.user;
 
     try {
-        if (user?.role !== 'admin') {
+        if (user?.role !== 'recruiter') {
             return {
                 success: false,
                 message: 'You have no permissions to delete a recruiter',
@@ -175,6 +177,20 @@ export async function deleteRecruiter(recruiterId: string) {
             };
         }
 
+        const acceptedApplications = await Application.countDocuments({
+            recruiterId,
+            status: 'accepted',
+        });
+
+        console.log('acceptedApplication for delete', acceptedApplications);
+
+        if (acceptedApplications > 0) {
+            return {
+                success: false,
+                message: `${user.name} you can't delete your account now because jobs are still on going.`,
+            };
+        }
+
         const recruiter = await Recruiter.findById(recruiterId).exec();
         if (!recruiter) {
             return {
@@ -182,6 +198,12 @@ export async function deleteRecruiter(recruiterId: string) {
                 message: 'Recruiter not found',
             };
         }
+
+        const myJobs = await Job.find({ recruiterId }).lean().exec();
+
+        const applications = await Application.find({ recruiterId })
+            .lean()
+            .exec();
 
         const deletedRecruiter = await recruiter.deleteOne();
 
@@ -191,6 +213,26 @@ export async function deleteRecruiter(recruiterId: string) {
                 message: 'Error when deleting',
             };
         }
+
+        const deletedJobs = myJobs.map(
+            async (myJob) => await myJob.deleteOne()
+        );
+
+        const deletedApplications = applications.map(
+            async (application) => await application.deleteOne()
+        );
+
+        console.log('Job deleted after recruiter deletion', deletedJobs);
+
+        console.log(
+            'application deleted after recruiter deletion',
+            deletedApplications
+        );
+
+        revalidatePath('/jobs');
+        revalidatePath('/dashboard/recruiter/jobs', 'page');
+        revalidatePath('/dashboard/recruiter/applications', 'page');
+        revalidatePath('/dashboard/applicant/applications', 'page');
 
         return {
             success: true,

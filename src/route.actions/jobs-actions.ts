@@ -74,8 +74,8 @@ export async function createJob(data: jobTypes) {
         maxPositions,
         skillsets,
         description,
+        type,
         location,
-        duration,
         salary,
     } = data;
 
@@ -87,7 +87,7 @@ export async function createJob(data: jobTypes) {
             };
         }
 
-        if (!title || !description || !location || !duration || !salary) {
+        if (!title || !description || !location || !salary) {
             return {
                 success: false,
                 message: 'All fields are required',
@@ -105,9 +105,9 @@ export async function createJob(data: jobTypes) {
             maxApplicants,
             maxPositions,
             skillsets,
+            type,
             description,
             location,
-            duration,
             salary,
         });
         if (!newJob) {
@@ -140,8 +140,8 @@ export async function updateJob(jobId: string, data: jobTypes) {
         acceptedApplicants,
         skillsets,
         description,
+        type,
         location,
-        duration,
         salary,
         rating,
     } = data;
@@ -154,7 +154,7 @@ export async function updateJob(jobId: string, data: jobTypes) {
             };
         }
 
-        if (!title || !description || !location || !duration || !salary) {
+        if (!title || !description || !location || !salary) {
             return {
                 success: false,
                 message: 'All fields are required',
@@ -181,7 +181,7 @@ export async function updateJob(jobId: string, data: jobTypes) {
         job.acceptedApplicants = acceptedApplicants;
         job.location = location;
         job.skillsets = skillsets;
-        job.duration = duration;
+        job.type = type;
         job.description = description;
         job.salary = salary;
         job.rating = rating;
@@ -240,33 +240,34 @@ export async function deleteJob(id: string) {
             jobId: id,
         }).exec();
 
-        if (!applications.length) {
-            console.log({
-                success: false,
-                message: 'No application found for this job',
-            });
-        }
-
         // Delete user
         const deletedJob = await jobToDelete.deleteOne();
-        if (deletedJob) {
-            const deletedApplications = applications.map(
-                async (application) => await application.deleteOne()
-            );
 
-            console.log(
-                'application deleted after job deletion',
-                deletedApplications
-            );
-
-            revalidatePath('/jobs');
-            revalidatePath('/dashboard/recruiter/jobs', 'page');
-
+        if (!deletedJob) {
             return {
-                success: true,
-                message: `Job '${jobToDelete.title}' deleted successfully`,
+                success: false,
+                message: 'Error when deleting',
             };
         }
+
+        const deletedApplications = applications.map(
+            async (application) => await application.deleteOne()
+        );
+
+        console.log(
+            'application deleted after job deletion',
+            deletedApplications
+        );
+
+        revalidatePath('/jobs');
+        revalidatePath('/dashboard/recruiter/jobs', 'page');
+        revalidatePath('/dashboard/recruiter/applications', 'page');
+        revalidatePath('/dashboard/applicant/applications', 'page');
+
+        return {
+            success: true,
+            message: `Job '${jobToDelete.title}' deleted successfully`,
+        };
     } catch (error) {
         handleError(error);
     }
