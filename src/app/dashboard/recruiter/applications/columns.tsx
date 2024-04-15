@@ -89,14 +89,14 @@ export const columns: ColumnDef<any>[] = [
         },
     },
     {
-        accessorKey: 'rating',
+        accessorKey: 'applicant.rating',
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Rating" />
+            <DataTableColumnHeader column={column} title="Applicant's Rating" />
         ),
         cell: ({ row }) => {
             return (
                 <div>
-                    <ShowRating userRating={row.getValue('rating')} />
+                    <ShowRating userRating={row.getValue('applicant_rating')} />
                 </div>
             );
         },
@@ -130,13 +130,13 @@ export const columns: ColumnDef<any>[] = [
                                 id={application?._id}
                                 action={deleteApplication}
                             >
-                                Delete
+                                Delete Application
                             </DeleteDialog>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                             <RatingDialog application={data}>
-                                Rating
+                                Set Rating
                             </RatingDialog>
                         </DropdownMenuItem>
                     </DropdownMenuContent>

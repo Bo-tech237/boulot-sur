@@ -1,5 +1,5 @@
 'use client';
-import { LucideTrash2 } from 'lucide-react';
+import { Loader2, LucideTrash2 } from 'lucide-react';
 import { Button } from './ui/button';
 import {
     Dialog,
@@ -14,7 +14,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { useToast } from './ui/use-toast';
 import { handleError } from '@/utils/handleError';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useTransition } from 'react';
 
 type Props = {
     id: string;
@@ -27,16 +27,14 @@ type Props = {
 function DeleteDialog({ id, action, children }: Props) {
     const router = useRouter();
     const { toast } = useToast();
-    const [loading, setLoading] = useState(false);
+    const [isPending, startTransition] = useTransition();
 
     async function handleDelete() {
         try {
-            setLoading(true);
             const deletedJob = await action(id);
 
             console.log('DeleteDialog', deletedJob);
             if (deletedJob?.success === false) {
-                setLoading(false);
                 toast({
                     variant: 'destructive',
                     title: deletedJob?.message,
@@ -44,7 +42,7 @@ function DeleteDialog({ id, action, children }: Props) {
                 });
                 return;
             }
-            setLoading(false);
+
             toast({
                 variant: 'success',
                 title: deletedJob?.message,
@@ -54,8 +52,6 @@ function DeleteDialog({ id, action, children }: Props) {
             return router.push('/jobs');
         } catch (error) {
             handleError(error);
-        } finally {
-            setLoading(false);
         }
     }
 
@@ -82,14 +78,20 @@ function DeleteDialog({ id, action, children }: Props) {
                             </DialogClose>
 
                             <Button
-                                disabled={loading}
+                                disabled={isPending}
                                 className="flex gap-2"
                                 type="button"
-                                onClick={() => handleDelete()}
+                                onClick={() => startTransition(handleDelete)}
                                 variant="destructive"
                                 size="sm"
                             >
-                                {loading ? 'Deleting...' : 'Delete'}
+                                {isPending && (
+                                    <Loader2
+                                        size={16}
+                                        className="animate-spin"
+                                    />
+                                )}
+                                Delete
                                 <LucideTrash2 className="h-4 w-5" />
                             </Button>
                         </div>

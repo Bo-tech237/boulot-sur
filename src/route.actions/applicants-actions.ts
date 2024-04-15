@@ -1,3 +1,5 @@
+'use server';
+
 import dbConnect from '@/lib/dbConfig';
 import { Applicant } from '../../models/Applicant';
 import bcrypt from 'bcrypt';

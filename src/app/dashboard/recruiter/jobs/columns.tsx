@@ -147,7 +147,7 @@ export const columns: ColumnDef<jobApiTypes>[] = [
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                             <DeleteDialog id={job?._id} action={deleteJob}>
-                                Delete
+                                Delete Job
                             </DeleteDialog>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
@@ -155,7 +155,7 @@ export const columns: ColumnDef<jobApiTypes>[] = [
                             <Link
                                 href={`/dashboard/recruiter/create-job?id=${job?._id}`}
                             >
-                                Update
+                                Update Job
                             </Link>
                         </DropdownMenuItem>
                     </DropdownMenuContent>

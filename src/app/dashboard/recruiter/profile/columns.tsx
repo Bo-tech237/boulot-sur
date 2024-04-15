@@ -120,7 +120,7 @@ export const columns: ColumnDef<recruiterApiTypes>[] = [
                                 id={recruiter?._id}
                                 action={deleteRecruiter}
                             >
-                                Delete
+                                Delete Profile
                             </DeleteDialog>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
@@ -128,11 +128,9 @@ export const columns: ColumnDef<recruiterApiTypes>[] = [
                             <Link
                                 href={`/dashboard/recruiter/profile/${recruiter?._id}`}
                             >
-                                Update
+                                Update Profile
                             </Link>
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>View details</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             );

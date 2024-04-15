@@ -17,6 +17,7 @@ import UpdateDialog from '@/components/UpdateDialog';
 import DeleteDialog from '@/components/DeleteDialog';
 import { deleteApplication } from '@/route.actions/applications-actions';
 import RatingDialog from '@/components/RatingDialog';
+import { ShowRating } from '@/components/ui/showRating';
 
 export const columns: ColumnDef<any>[] = [
     {
@@ -62,6 +63,19 @@ export const columns: ColumnDef<any>[] = [
         ),
     },
     {
+        accessorKey: 'recruiter.rating',
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Recruiter's Rating" />
+        ),
+        cell: ({ row }) => {
+            return (
+                <div>
+                    <ShowRating userRating={row.getValue('recruiter_rating')} />
+                </div>
+            );
+        },
+    },
+    {
         id: 'actions',
         cell: ({ row }) => {
             const application = row.original;
@@ -92,13 +106,13 @@ export const columns: ColumnDef<any>[] = [
                                 id={application?._id}
                                 action={deleteApplication}
                             >
-                                Delete
+                                Delete Application
                             </DeleteDialog>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                             <RatingDialog application={data}>
-                                Rating
+                                Set Rating
                             </RatingDialog>
                         </DropdownMenuItem>
                     </DropdownMenuContent>

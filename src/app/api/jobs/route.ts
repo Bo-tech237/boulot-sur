@@ -42,9 +42,9 @@ export async function POST(request: Request) {
         activeApplications,
         acceptedApplicants,
         skillsets,
+        type,
         description,
         location,
-        duration,
         salary,
         rating,
     }: Partial<jobApiTypes> = await request.json();
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
             });
         }
 
-        if (!title || !description || !location || !duration || !salary) {
+        if (!title || !description || !location || !salary) {
             return NextResponse.json('All fields are required', {
                 status: 400,
                 statusText: 'All fields are required',
@@ -81,9 +81,9 @@ export async function POST(request: Request) {
             activeApplications,
             acceptedApplicants,
             skillsets,
+            type,
             description,
             location,
-            duration,
             salary,
             rating,
         });
@@ -122,9 +122,9 @@ export async function PATCH(request: Request) {
         activeApplications,
         acceptedApplicants,
         skillsets,
+        type,
         description,
         location,
-        duration,
         salary,
         rating,
     }: jobApiTypes = await request.json();
@@ -138,14 +138,7 @@ export async function PATCH(request: Request) {
             });
         }
 
-        if (
-            !_id ||
-            !title ||
-            !description ||
-            !location ||
-            !duration ||
-            !salary
-        ) {
+        if (!_id || !title || !description || !location || !salary) {
             return NextResponse.json('All fields are required', {
                 status: 400,
                 statusText: 'All fields are required',
@@ -176,7 +169,7 @@ export async function PATCH(request: Request) {
         job.acceptedApplicants = acceptedApplicants;
         job.location = location;
         job.skillsets = skillsets;
-        job.duration = duration;
+        job.type = type;
         job.description = description;
         job.salary = salary;
         job.rating = rating;

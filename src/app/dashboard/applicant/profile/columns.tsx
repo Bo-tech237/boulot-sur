@@ -16,6 +16,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ShowRating } from '@/components/ui/showRating';
+import DeleteDialog from '@/components/DeleteDialog';
+import { deleteApplicant } from '@/route.actions/applicants-actions';
 
 export const columns: ColumnDef<applicantApiTypes>[] = [
     {
@@ -151,8 +153,13 @@ export const columns: ColumnDef<applicantApiTypes>[] = [
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => alert(applicant?._id)}>
-                            Delete Profile
+                        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                            <DeleteDialog
+                                id={applicant?._id}
+                                action={deleteApplicant}
+                            >
+                                Delete Profile
+                            </DeleteDialog>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
@@ -161,10 +168,6 @@ export const columns: ColumnDef<applicantApiTypes>[] = [
                             >
                                 Update Profile
                             </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                            View Profile details
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
