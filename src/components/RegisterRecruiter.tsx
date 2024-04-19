@@ -99,7 +99,7 @@ function RegisterRecruiter({ recruiter }: Props) {
                 });
             }
 
-            if (updatedRecruiter.success === true) {
+            if (updatedRecruiter?.success === true) {
                 toast({
                     variant: 'success',
                     title: updatedRecruiter.message,
