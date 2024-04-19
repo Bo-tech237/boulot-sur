@@ -4,7 +4,7 @@ import dbConnect from '@/lib/dbConfig';
 import { Applicant } from '../../models/Applicant';
 import bcrypt from 'bcrypt';
 import { handleError } from '@/utils/handleError';
-import { auth } from '@/auth';
+import { auth, signOut } from '@/auth';
 import { applicantTypes } from '@/lib/applicantSchema';
 import { revalidatePath } from 'next/cache';
 import { Application } from '../../models/Application';
@@ -51,7 +51,7 @@ export async function getApplicantById(applicantId: string) {
     }
 }
 
-export async function createApplicant(data: applicantTypes) {
+export async function createApplicant(data: any) {
     const { name, email, password, education, skills, resume, profile } = data;
     await dbConnect();
 
@@ -83,6 +83,10 @@ export async function createApplicant(data: applicantTypes) {
             profile,
         });
         if (newApplicant) {
+            emailer.notifyUserForSignup(email, name);
+
+            revalidatePath('/dashboard/applicant/profile', 'page');
+
             return { success: true, message: `New applicant ${name} created` };
         } else {
             return {
@@ -95,10 +99,7 @@ export async function createApplicant(data: applicantTypes) {
     }
 }
 
-export async function updateApplicant(
-    applicantId: string,
-    data: applicantTypes
-) {
+export async function updateApplicant(applicantId: string, data: any) {
     const { name, email, password, education, skills, resume, profile } = data;
     await dbConnect();
     const session = await auth();
@@ -225,6 +226,8 @@ export async function deleteApplicant(applicantId: string) {
                 message: 'Error when deleting',
             };
         }
+
+        await signOut({ redirectTo: '/register' });
 
         // delete all applicant applications
         const deletedApplications = applications.map(

@@ -23,6 +23,10 @@ import { useRouter } from 'next/navigation';
 import { useToast } from './ui/use-toast';
 import * as z from 'zod';
 import { createApplicantSchema } from '@/lib/applicantSchema';
+import {
+    createApplicant,
+    updateApplicant,
+} from '@/route.actions/applicants-actions';
 
 type Props = { applicant?: applicantApiTypes | null };
 
@@ -69,59 +73,56 @@ function RegisterApplicant({ applicant }: Props) {
         isEdit
     );
 
-    async function getApplicantData(data: applicantTypes) {
-        const res = await fetch('/api/applicants', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: { 'content-type': 'application/json' },
-        });
+    // async function getApplicantData(data: applicantTypes) {
+    //     const res = await fetch('/api/applicants', {
+    //         method: 'POST',
+    //         body: JSON.stringify(data),
+    //         headers: { 'content-type': 'application/json' },
+    //     });
 
-        return res.json();
-    }
-    async function updateApplicantData(id: string, data: applicantTypes) {
-        const applicant = { id, ...data };
-        const res = await fetch('/api/applicants', {
-            method: 'PATCH',
-            body: JSON.stringify(applicant),
-            headers: { 'content-type': 'application/json' },
-        });
+    //     return res.json();
+    // }
+    // async function updateApplicantData(id: string, data: applicantTypes) {
+    //     const applicant = { id, ...data };
+    //     const res = await fetch('/api/applicants', {
+    //         method: 'PATCH',
+    //         body: JSON.stringify(applicant),
+    //         headers: { 'content-type': 'application/json' },
+    //     });
 
-        return res.json();
-    }
+    //     return res.json();
+    // }
 
     async function onSubmit(data: applicantTypes) {
         if (applicant) {
-            const updatedApplicant = await updateApplicantData(
-                applicant._id,
-                data
-            );
+            const updatedApplicant = await updateApplicant(applicant._id, data);
 
             if (updatedApplicant?.success === false) {
                 return form.setError('root', {
-                    message: updatedApplicant.statusText,
+                    message: updatedApplicant.message,
                 });
             }
 
             if (updatedApplicant?.success === true) {
                 toast({
                     variant: 'success',
-                    title: updatedApplicant.statusText,
+                    title: updatedApplicant.message,
                     description: `${new Date()}`,
                 });
                 return router.push('/dashboard/applicant/profile');
             }
         } else {
-            const result = await getApplicantData(data);
+            const result = await createApplicant(data);
             console.log('applicant1', result);
 
             if (result?.success === false) {
-                return form.setError('root', { message: result.statusText });
+                return form.setError('root', { message: result.message });
             }
 
             if (result?.success === true) {
                 toast({
                     variant: 'success',
-                    title: result.statusText,
+                    title: result.message,
                     description: `${new Date()}`,
                 });
                 form.reset();

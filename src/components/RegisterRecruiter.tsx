@@ -23,6 +23,10 @@ import { useRouter } from 'next/navigation';
 import { useToast } from './ui/use-toast';
 import { createRecruiterSchema } from '@/lib/recruiterSchema';
 import * as z from 'zod';
+import {
+    createRecruiter,
+    updateRecruiter,
+} from '@/route.actions/recruiters-actions';
 
 type Props = { recruiter?: recruiterApiTypes | null };
 
@@ -65,59 +69,56 @@ function RegisterRecruiter({ recruiter }: Props) {
         isEdit
     );
 
-    async function getRecruiterData(data: recruiterTypes) {
-        const res = await fetch('/api/recruiters', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: { 'content-type': 'application/json' },
-        });
+    // async function getRecruiterData(data: recruiterTypes) {
+    //     const res = await fetch('/api/recruiters', {
+    //         method: 'POST',
+    //         body: JSON.stringify(data),
+    //         headers: { 'content-type': 'application/json' },
+    //     });
 
-        return res.json();
-    }
-    async function updateRecruiterData(id: string, data: recruiterTypes) {
-        const recruiter = { id, ...data };
-        const res = await fetch('/api/recruiters', {
-            method: 'PATCH',
-            body: JSON.stringify(recruiter),
-            headers: { 'content-type': 'application/json' },
-        });
+    //     return res.json();
+    // }
+    // async function updateRecruiterData(id: string, data: recruiterTypes) {
+    //     const recruiter = { id, ...data };
+    //     const res = await fetch('/api/recruiters', {
+    //         method: 'PATCH',
+    //         body: JSON.stringify(recruiter),
+    //         headers: { 'content-type': 'application/json' },
+    //     });
 
-        return res.json();
-    }
+    //     return res.json();
+    // }
 
     async function onSubmit(data: recruiterTypes) {
         if (recruiter) {
-            const updatedRecruiter = await updateRecruiterData(
-                recruiter._id,
-                data
-            );
+            const updatedRecruiter = await updateRecruiter(recruiter._id, data);
 
             if (updatedRecruiter?.success === false) {
                 return form.setError('root', {
-                    message: updatedRecruiter.statusText,
+                    message: updatedRecruiter.message,
                 });
             }
 
             if (updatedRecruiter.success === true) {
                 toast({
                     variant: 'success',
-                    title: updatedRecruiter.statusText,
+                    title: updatedRecruiter.message,
                     description: `${new Date()}`,
                 });
 
                 return router.push('/dashboard/recruiter/profile');
             }
         } else {
-            const result = await getRecruiterData(data);
+            const result = await createRecruiter(data);
 
             if (result?.success === false) {
-                return form.setError('root', { message: result.statusText });
+                return form.setError('root', { message: result.message });
             }
 
             if (result?.success === true) {
                 toast({
                     variant: 'success',
-                    title: result.statusText,
+                    title: result.message,
                     description: `${new Date()}`,
                 });
                 form.reset();

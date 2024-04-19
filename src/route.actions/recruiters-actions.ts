@@ -5,7 +5,7 @@ import { Recruiter } from '../../models/Recruiter';
 import bcrypt from 'bcrypt';
 import { recruiterTypes } from '@/lib/recruiterSchema';
 import { handleError } from '@/utils/handleError';
-import { auth } from '@/auth';
+import { auth, signOut } from '@/auth';
 import { revalidatePath } from 'next/cache';
 import { Job } from '../../models/Job';
 import { Application } from '../../models/Application';
@@ -52,7 +52,7 @@ export async function getRecruiterById(recruiterId: string) {
     }
 }
 
-export async function createRecruiter(data: recruiterTypes) {
+export async function createRecruiter(data: any) {
     const { name, email, password, phone, country, city, description, postal } =
         data;
 
@@ -89,6 +89,9 @@ export async function createRecruiter(data: recruiterTypes) {
             postal,
         });
         if (newRecruiter) {
+            emailer.notifyUserForSignup(email, name);
+
+            revalidatePath('/dashboard/recruiter/profile', 'page');
             return { success: true, message: `New recruiter ${name} created` };
         } else {
             return {
@@ -101,10 +104,7 @@ export async function createRecruiter(data: recruiterTypes) {
     }
 }
 
-export async function updateRecruiter(
-    recruiterId: string,
-    data: recruiterTypes
-) {
+export async function updateRecruiter(recruiterId: string, data: any) {
     const session = await auth();
     const user = session?.user;
     await dbConnect();
@@ -152,7 +152,12 @@ export async function updateRecruiter(
             };
         }
 
-        return { success: true, message: `Recruiter ${name} updated` };
+        revalidatePath('/dashboard/recruiter/profile', 'page');
+
+        return {
+            success: true,
+            message: `Recruiter ${name} updated successfully`,
+        };
     } catch (error) {
         handleError(error);
     }
@@ -217,6 +222,8 @@ export async function deleteRecruiter(recruiterId: string) {
                 message: 'Error when deleting',
             };
         }
+
+        await signOut({ redirectTo: '/register' });
 
         const deletedJobs = myJobs.map(
             async (myJob) => await myJob.deleteOne()
