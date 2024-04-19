@@ -223,6 +223,8 @@ export async function deleteRecruiter(recruiterId: string) {
             };
         }
 
+        emailer.notifyUserForDeletedAccount(user?.email, user?.name);
+
         await signOut({ redirectTo: '/register' });
 
         const deletedJobs = myJobs.map(
@@ -245,8 +247,6 @@ export async function deleteRecruiter(recruiterId: string) {
         );
 
         console.log('Ratings deleted after recruiter deletion', deletedRatings);
-
-        emailer.notifyUserForDeletedAccount(user?.email, user?.name);
 
         revalidatePath('/jobs');
         revalidatePath('/dashboard/recruiter/jobs', 'page');

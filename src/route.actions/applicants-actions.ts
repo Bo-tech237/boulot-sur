@@ -227,6 +227,8 @@ export async function deleteApplicant(applicantId: string) {
             };
         }
 
+        emailer.notifyUserForDeletedAccount(user?.email, user?.name);
+
         await signOut({ redirectTo: '/register' });
 
         // delete all applicant applications
@@ -244,8 +246,6 @@ export async function deleteApplicant(applicantId: string) {
         );
 
         console.log('Ratings deleted after recruiter deletion', deletedRatings);
-
-        emailer.notifyUserForDeletedAccount(user?.email, user?.name);
 
         revalidatePath('/jobs');
         revalidatePath('/dashboard/recruiter/jobs', 'page');
