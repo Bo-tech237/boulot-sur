@@ -11,7 +11,7 @@ import { Button } from './ui/button';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { jobApiTypes } from '@/lib/jobSchema';
-import { friendlyTime, formatMoney } from '@/lib/friendly-time';
+import { formatMoney, jobPostedTime } from '@/lib/friendly-time';
 import { ShowRating } from './ui/showRating';
 
 type Props = { job: jobApiTypes };
@@ -28,7 +28,7 @@ function JobCard({ job }: Props) {
                     <p>Max positions: {job.maxPositions}</p>
                     <p className="capitalize">Location: {job.location}</p>
                     <p>Salary: {formatMoney(job.salary)}</p>
-                    <p>Posted: {friendlyTime(new Date(job.createdAt))}</p>
+                    <p>Posted: {jobPostedTime(new Date(job.createdAt))}</p>
                     <p>Skills: {job.skillsets.join(', ')}</p>
 
                     <p>

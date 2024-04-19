@@ -229,7 +229,7 @@ export async function deleteApplicant(applicantId: string) {
 
         emailer.notifyUserForDeletedAccount(user?.email, user?.name);
 
-        await signOut({ redirectTo: '/register' });
+        await signOut({ redirectTo: '/login' });
 
         // delete all applicant applications
         const deletedApplications = applications.map(

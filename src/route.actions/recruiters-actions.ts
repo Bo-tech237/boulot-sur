@@ -225,8 +225,9 @@ export async function deleteRecruiter(recruiterId: string) {
 
         emailer.notifyUserForDeletedAccount(user?.email, user?.name);
 
-        await signOut({ redirectTo: '/register' });
+        await signOut({ redirectTo: '/login' });
 
+        console.log('Job to be deleted', myJobs);
         const deletedJobs = myJobs.map(
             async (myJob) => await myJob.deleteOne()
         );

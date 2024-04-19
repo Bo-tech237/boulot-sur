@@ -1,28 +1,40 @@
-export function friendlyTime(date: Date) {
-    const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
+export function jobPostedTime(date: Date) {
+    let timeDifference = new Date().getTime() - date.getTime();
 
-    let interval = seconds / 31536000;
+    let secondsDifference = Math.floor(timeDifference / 1000);
+    let minutesDifference = Math.floor(secondsDifference / 60);
+    let hoursDifference = Math.floor(minutesDifference / 60);
+    let daysDifference = Math.floor(hoursDifference / 24);
+    let monthsDifference = Math.floor(daysDifference / 30);
+    let yearsDifference = Math.floor(monthsDifference / 12);
 
-    if (interval > 1) {
-        return Math.floor(interval) + ' years ago';
+    if (yearsDifference > 0) {
+        return (
+            yearsDifference +
+            (yearsDifference === 1 ? ' year ago' : ' years ago')
+        );
+    } else if (monthsDifference > 0) {
+        return (
+            monthsDifference +
+            (monthsDifference === 1 ? ' month ago' : ' months ago')
+        );
+    } else if (daysDifference > 0) {
+        return (
+            daysDifference + (daysDifference === 1 ? ' day ago' : ' days ago')
+        );
+    } else if (hoursDifference > 0) {
+        return (
+            hoursDifference +
+            (hoursDifference === 1 ? ' hour ago' : ' hours ago')
+        );
+    } else if (minutesDifference > 0) {
+        return (
+            minutesDifference +
+            (minutesDifference === 1 ? ' minute ago' : ' minutes ago')
+        );
+    } else {
+        return ' Just now';
     }
-    interval = seconds / 2592000;
-    if (interval > 1) {
-        return Math.floor(interval) + ' months ago';
-    }
-    interval = seconds / 86400;
-    if (interval > 1) {
-        return Math.floor(interval) + ' days ago';
-    }
-    interval = seconds / 3600;
-    if (interval > 1) {
-        return Math.floor(interval) + ' hours ago';
-    }
-    interval = seconds / 60;
-    if (interval > 1) {
-        return Math.floor(interval) + ' minutes ago';
-    }
-    return Math.floor(seconds) + ' seconds ago';
 }
 
 export function formatMoney(amount: number) {

@@ -12,7 +12,7 @@ import {
     DialogTrigger,
 } from './ui/dialog';
 import { useRouter } from 'next/navigation';
-import { useToast } from './ui/use-toast';
+import { toast } from './ui/use-toast';
 import { handleError } from '@/utils/handleError';
 import { ReactNode, useTransition } from 'react';
 
@@ -26,7 +26,7 @@ type Props = {
 
 function DeleteDialog({ id, action, children }: Props) {
     const router = useRouter();
-    const { toast } = useToast();
+
     const [isPending, startTransition] = useTransition();
 
     async function handleDelete() {
