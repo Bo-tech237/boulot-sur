@@ -4,7 +4,7 @@ import dbConnect from '@/lib/dbConfig';
 import { Applicant } from '../../models/Applicant';
 import bcrypt from 'bcrypt';
 import { handleError } from '@/utils/handleError';
-import { auth, signOut } from '@/auth';
+import { auth } from '@/auth';
 import { applicantTypes } from '@/lib/applicantSchema';
 import { revalidatePath } from 'next/cache';
 import { Application } from '../../models/Application';
@@ -229,16 +229,16 @@ export async function deleteApplicant(applicantId: string) {
 
         emailer.notifyUserForDeletedAccount(user?.email, user?.name);
 
-        await signOut({ redirectTo: '/login' });
-
         // delete all applicant applications
-        const deletedApplications = applications.map(
-            async (application) => await application.deleteOne()
-        );
+        const deletedApplications =
+            applications.length > 0 &&
+            applications.map(
+                async (application) => await application.deleteOne()
+            );
 
-        const deletedRatings = ratings.map(
-            async (rating) => await rating.deleteOne()
-        );
+        const deletedRatings =
+            ratings.length > 0 &&
+            ratings.map(async (rating) => await rating.deleteOne());
 
         console.log(
             'Application deleted after applicant deletion',
@@ -253,6 +253,7 @@ export async function deleteApplicant(applicantId: string) {
         revalidatePath('/dashboard/applicant/applications', 'page');
 
         return {
+            account: true,
             success: true,
             message: `Applicant '${applicant.name}' deleted`,
         };

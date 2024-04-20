@@ -1,4 +1,4 @@
-import React, { cache } from 'react';
+import React from 'react';
 import JobCard from './JobCard';
 import { jobApiTypes } from '@/lib/jobSchema';
 import { jobFilterValues } from '@/lib/filterJobs';
@@ -6,7 +6,6 @@ import { Job } from '../../models/Job';
 import { handleError } from '@/utils/handleError';
 import dbConnect from '@/lib/dbConfig';
 import { unstable_cache as nextCache } from 'next/cache';
-import { myCache } from '@/lib/cache';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
@@ -38,29 +37,26 @@ const getAllJobs = nextCache(
         const where = {
             $and: [searchFilter, type ? { type } : {}],
         };
+
+        const jobsPromise: Promise<jobApiTypes[]> = Job.find(where)
+            .sort({
+                createdAt: -1,
+            })
+            .skip(skip)
+            .limit(jobsPerPage)
+            .exec();
+
+        const countPromise: Promise<number> = Job.countDocuments(where);
+
         try {
             await dbConnect();
-
-            const jobsPromise = Job.find(where)
-                .sort({
-                    createdAt: -1,
-                })
-                .skip(skip)
-                .limit(jobsPerPage)
-                .exec();
-
-            const countPromise = Job.countDocuments(where);
 
             const [jobs, totalCount] = await Promise.all([
                 jobsPromise,
                 countPromise,
             ]);
 
-            if (!jobs?.length) {
-                return { success: false, message: 'No jobs found' };
-            }
-
-            return JSON.parse(JSON.stringify({ jobs, totalCount }));
+            return { jobs, totalCount };
         } catch (error) {
             handleError(error);
         }
@@ -74,8 +70,11 @@ async function JobCardList({ filterValues, page = 1 }: JobCardListProps) {
     const jobsPerPage = 10;
     const skip = (page - 1) * jobsPerPage;
 
-    const { jobs, totalCount }: { jobs: jobApiTypes[]; totalCount: number } =
-        await getAllJobs(q, type, skip, jobsPerPage);
+    const values = await getAllJobs(q, type, skip, jobsPerPage);
+
+    const jobs = values?.jobs || [];
+    const totalCount = values?.totalCount || 0;
+
     console.log('action', jobs);
 
     return (

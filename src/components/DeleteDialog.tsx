@@ -15,12 +15,16 @@ import { useRouter } from 'next/navigation';
 import { toast } from './ui/use-toast';
 import { handleError } from '@/utils/handleError';
 import { ReactNode, useTransition } from 'react';
+import { signOut } from '@/auth';
+import { logOut } from '@/lib/actions';
 
 type Props = {
     id: string;
     action: (
         id: string
-    ) => Promise<{ success: boolean; message: string } | undefined>;
+    ) => Promise<
+        { success: boolean; message: string; account?: boolean } | undefined
+    >;
     children: ReactNode;
 };
 
@@ -41,6 +45,13 @@ function DeleteDialog({ id, action, children }: Props) {
                     description: `${new Date()}`,
                 });
                 return;
+            } else if (deletedJob?.account === true) {
+                logOut();
+                toast({
+                    variant: 'success',
+                    title: deletedJob?.message,
+                    description: `${new Date()}`,
+                });
             }
 
             toast({

@@ -1,6 +1,6 @@
 'use server';
 
-import { auth, signIn } from '../auth';
+import { auth, signIn, signOut } from '../auth';
 import { AuthError } from 'next-auth';
 import { loginUser } from './authSchema';
 import { UTApi } from 'uploadthing/server';
@@ -64,4 +64,8 @@ export async function removeImage(file: string) {
     } catch (error) {
         return { success: false };
     }
+}
+
+export async function logOut() {
+    await signOut();
 }

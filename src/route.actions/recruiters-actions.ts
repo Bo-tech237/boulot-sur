@@ -5,7 +5,7 @@ import { Recruiter } from '../../models/Recruiter';
 import bcrypt from 'bcrypt';
 import { recruiterTypes } from '@/lib/recruiterSchema';
 import { handleError } from '@/utils/handleError';
-import { auth, signOut } from '@/auth';
+import { auth } from '@/auth';
 import { revalidatePath } from 'next/cache';
 import { Job } from '../../models/Job';
 import { Application } from '../../models/Application';
@@ -215,30 +215,29 @@ export async function deleteRecruiter(recruiterId: string) {
             .exec();
 
         const deletedRecruiter = await recruiter.deleteOne();
-
+        console.log('now', deletedRecruiter);
         if (!deletedRecruiter) {
             return {
                 success: false,
                 message: 'Error when deleting',
             };
         }
-
         emailer.notifyUserForDeletedAccount(user?.email, user?.name);
 
-        await signOut({ redirectTo: '/login' });
-
         console.log('Job to be deleted', myJobs);
-        const deletedJobs = myJobs.map(
-            async (myJob) => await myJob.deleteOne()
-        );
+        const deletedJobs =
+            myJobs.length > 0 &&
+            myJobs.map(async (myJob) => await myJob.deleteOne());
 
-        const deletedApplications = applications.map(
-            async (application) => await application.deleteOne()
-        );
+        const deletedApplications =
+            applications.length > 0 &&
+            applications.map(
+                async (application) => await application.deleteOne()
+            );
 
-        const deletedRatings = ratings.map(
-            async (rating) => await rating.deleteOne()
-        );
+        const deletedRatings =
+            ratings.length > 0 &&
+            ratings.map(async (rating) => await rating.deleteOne());
 
         console.log('Job deleted after recruiter deletion', deletedJobs);
 
@@ -255,6 +254,7 @@ export async function deleteRecruiter(recruiterId: string) {
         revalidatePath('/dashboard/applicant/applications', 'page');
 
         return {
+            account: true,
             success: true,
             message: `Recruiter '${recruiter.name}' deleted successfully`,
         };
