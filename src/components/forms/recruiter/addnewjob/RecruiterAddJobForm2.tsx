@@ -25,7 +25,10 @@ function RecruiterAddJobForm2(
             type: string;
             maxApplicants: number;
             maxPositions: number;
-            skillsets: string[];
+            skillsets: {
+                text: string;
+                id: string;
+            }[];
             description: string;
             location: string;
             salary: number;

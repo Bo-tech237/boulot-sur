@@ -13,7 +13,15 @@ export const jobSchema = z.object({
         .min(1, { message: 'Max position required' }),
     activeApplications: z.coerce.number().optional(),
     acceptedApplicants: z.coerce.number().optional(),
-    skillsets: z.array(z.string()).min(1, { message: 'Skills required' }),
+    //skillsets: z.array(z.string()).min(1, { message: 'Skills required' }),
+    skillsets: z
+        .array(
+            z.object({
+                id: z.string(),
+                text: z.string(),
+            })
+        )
+        .min(1, { message: 'Skills required' }),
     description: z
         .string()
         .min(1, { message: 'Description required' })

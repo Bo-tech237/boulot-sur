@@ -215,7 +215,7 @@ export async function deleteRecruiter(recruiterId: string) {
             .exec();
 
         const deletedRecruiter = await recruiter.deleteOne();
-        console.log('now', deletedRecruiter);
+
         if (!deletedRecruiter) {
             return {
                 success: false,

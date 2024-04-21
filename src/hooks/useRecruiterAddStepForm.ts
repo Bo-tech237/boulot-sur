@@ -21,7 +21,10 @@ export function useRecruiterAddStepForm(steps: ReactElement[]) {
             maxApplicants: number;
             maxPositions: number;
             type: string;
-            skillsets: string[];
+            skillsets: {
+                text: string;
+                id: string;
+            }[];
             description: string;
             location: string;
             salary: number;

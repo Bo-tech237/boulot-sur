@@ -17,15 +17,12 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
-import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { createJob } from '@/route.actions/jobs-actions';
 import { updateJob } from '@/route.actions/jobs-actions';
 import { useToast } from './ui/use-toast';
 import { handleError } from '@/utils/handleError';
-
-// type successProp = { success: boolean; message: string };
-// type Props = { job?: jobApiTypes | null };
 
 function AddNewJob({ job }: any) {
     const { toast } = useToast();
@@ -132,9 +129,15 @@ function AddNewJob({ job }: any) {
                                         type="submit"
                                         disabled={form.formState.isSubmitting}
                                     >
-                                        {form.formState.isSubmitting
-                                            ? 'Submitting...'
-                                            : 'Submit'}
+                                        <span className="flex items-center justify-center gap-1">
+                                            {form.formState.isSubmitting && (
+                                                <Loader2
+                                                    size={16}
+                                                    className="animate-spin"
+                                                />
+                                            )}
+                                            Submit
+                                        </span>
                                     </Button>
                                 )}
                             </div>

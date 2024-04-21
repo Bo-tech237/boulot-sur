@@ -18,6 +18,7 @@ import Link from 'next/link';
 import DeleteDialog from '@/components/DeleteDialog';
 import { ShowRating } from '@/components/ui/showRating';
 import { formatMoney } from '@/lib/friendly-time';
+import { truncateAtLastSpace } from '@/utils/truncateText';
 
 export const columns: ColumnDef<jobApiTypes>[] = [
     {
@@ -49,6 +50,11 @@ export const columns: ColumnDef<jobApiTypes>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Title" />
         ),
+        cell: ({ row }) => {
+            const title: string = row.getValue('title');
+
+            return <div className="font-medium uppercase">{title}</div>;
+        },
     },
     {
         accessorKey: 'maxApplicants',
@@ -67,12 +73,26 @@ export const columns: ColumnDef<jobApiTypes>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Skillsets" />
         ),
+        cell: ({ row }) => {
+            const skillsets: any[] = row.getValue('skillsets');
+
+            const formatted = skillsets.map((skillset) => skillset.text);
+
+            return <div className="font-medium capitalize">{formatted}</div>;
+        },
     },
     {
         accessorKey: 'description',
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Description" />
         ),
+        cell: ({ row }) => {
+            const description: string = row.getValue('description');
+
+            const formatted = truncateAtLastSpace(description, 16);
+
+            return <div className="font-medium">{formatted}</div>;
+        },
     },
     {
         accessorKey: 'location',

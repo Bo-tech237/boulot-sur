@@ -69,26 +69,6 @@ function RegisterRecruiter({ recruiter }: Props) {
         isEdit
     );
 
-    // async function getRecruiterData(data: recruiterTypes) {
-    //     const res = await fetch('/api/recruiters', {
-    //         method: 'POST',
-    //         body: JSON.stringify(data),
-    //         headers: { 'content-type': 'application/json' },
-    //     });
-
-    //     return res.json();
-    // }
-    // async function updateRecruiterData(id: string, data: recruiterTypes) {
-    //     const recruiter = { id, ...data };
-    //     const res = await fetch('/api/recruiters', {
-    //         method: 'PATCH',
-    //         body: JSON.stringify(recruiter),
-    //         headers: { 'content-type': 'application/json' },
-    //     });
-
-    //     return res.json();
-    // }
-
     async function onSubmit(data: recruiterTypes) {
         if (recruiter) {
             const updatedRecruiter = await updateRecruiter(recruiter._id, data);

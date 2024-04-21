@@ -28,7 +28,12 @@ const jobSchema = new Schema(
             type: Number,
             default: 0,
         },
-        skillsets: [{ type: String, required: true, lowercase: true }],
+        skillsets: [
+            {
+                text: { type: String, required: true, lowercase: true },
+                id: { type: String, required: true, lowercase: true },
+            },
+        ],
         description: {
             type: String,
             required: true,

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState, useTransition } from 'react';
-import { Star } from 'lucide-react';
+import { Loader2, Star } from 'lucide-react';
 import { updateRatings } from '@/route.actions/ratings-actions';
 import { Button } from './button';
 import { useRouter } from 'next/navigation';
@@ -166,7 +166,12 @@ export function AppRating({
                     });
                 }}
             >
-                {isPending ? 'Submitting' : 'Submit'}
+                <span className="flex items-center justify-center gap-1">
+                    {isPending && (
+                        <Loader2 size={16} className="animate-spin" />
+                    )}
+                    Submit
+                </span>
             </Button>
             <div
                 className="flex items-end space-x-1 py-3"

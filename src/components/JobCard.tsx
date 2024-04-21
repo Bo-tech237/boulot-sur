@@ -21,7 +21,7 @@ function JobCard({ job }: Props) {
         <>
             <Card>
                 <CardHeader>
-                    <CardTitle>{job.title}</CardTitle>
+                    <CardTitle className="uppercase">{job.title}</CardTitle>
                 </CardHeader>
                 <CardContent className="">
                     <p>Max applications: {job.maxApplicants}</p>
@@ -29,7 +29,9 @@ function JobCard({ job }: Props) {
                     <p className="capitalize">Location: {job.location}</p>
                     <p>Salary: {formatMoney(job.salary)}</p>
                     <p>Posted: {jobPostedTime(new Date(job.createdAt))}</p>
-                    <p>Skills: {job.skillsets.join(', ')}</p>
+                    <p>
+                        Skills: {job.skillsets.map((skillset) => skillset.text)}
+                    </p>
 
                     <p>
                         <ShowRating userRating={job.rating} />

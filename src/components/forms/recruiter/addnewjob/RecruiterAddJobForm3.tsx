@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import {
     FormControl,
@@ -9,7 +10,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { UseFormReturn } from 'react-hook-form';
 import { FormWrapper } from '@/components/forms/formWrapper';
-import { InputTags } from '@/components/InputTags';
+import { Tag, TagInput } from '@/components/tag/tag-input';
 
 function RecruiterAddJobForm3(
     form: UseFormReturn<
@@ -18,7 +19,10 @@ function RecruiterAddJobForm3(
             type: string;
             maxApplicants: number;
             maxPositions: number;
-            skillsets: string[];
+            skillsets: {
+                text: string;
+                id: string;
+            }[];
             description: string;
             location: string;
             salary: number;
@@ -30,6 +34,9 @@ function RecruiterAddJobForm3(
         undefined
     >
 ) {
+    const [tags, setTags] = React.useState<Tag[]>([]);
+    const { setValue } = form;
+
     return (
         <div>
             <FormWrapper title="Description">
@@ -40,10 +47,20 @@ function RecruiterAddJobForm3(
                         <FormItem>
                             <FormLabel>Skillsets</FormLabel>
                             <FormControl>
-                                <InputTags
-                                    placeholder="Press enter,space or comma"
-                                    type="text"
+                                <TagInput
                                     {...field}
+                                    placeholder="Enter a skill"
+                                    tags={tags}
+                                    className="sm:min-w-[450px]"
+                                    inputFieldPostion="top"
+                                    draggable={true}
+                                    setTags={(newTags) => {
+                                        setTags(newTags);
+                                        setValue(
+                                            'skillsets',
+                                            newTags as [Tag, ...Tag[]]
+                                        );
+                                    }}
                                 />
                             </FormControl>
                             <FormMessage />

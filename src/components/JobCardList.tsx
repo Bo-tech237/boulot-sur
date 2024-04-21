@@ -10,13 +10,14 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
+import { myCache } from '@/lib/cache';
 
 interface JobCardListProps {
     filterValues: jobFilterValues;
     page?: number;
 }
 
-const getAllJobs = nextCache(
+const getAllJobs = myCache(
     async (q, type, skip, jobsPerPage: any) => {
         const searchString = q
             ?.split(' ')
