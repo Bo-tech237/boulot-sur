@@ -1,19 +1,25 @@
-import NextAuth from 'next-auth';
-import { authConfig } from '@/auth.config';
-//import { auth } from '@/auth';
+// import NextAuth from 'next-auth';
+// import { authConfig } from '@/auth.config';
 
-export const { auth } = NextAuth(authConfig);
+// const { auth } = NextAuth(authConfig);
+import { auth } from '@/auth';
 
-// export default auth(async (req) => {
-//     if (req.auth) {
-//         console.log('Now', req.auth.user);
-//         return Response.json(req.auth.user);
-//     }
+export default auth((req) => {
+    const { nextUrl } = req;
 
-//     return Response.json({ message: 'Not authenticated' }, { status: 401 });
-// }) as any;
+    const isAuthenticated = !!req.auth;
+    console.log('user', isAuthenticated);
+    const isPublicRoute = ['/login'].includes(nextUrl.pathname);
+
+    if (isPublicRoute && isAuthenticated)
+        return Response.redirect(new URL('/dashboard', nextUrl));
+
+    if (!isAuthenticated && !isPublicRoute)
+        return Response.redirect(new URL('/', nextUrl));
+});
+
+//export { auth as middleware } from '@/auth';
 
 export const config = {
     matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
-    // matcher: ['/api/:path*'],
 };

@@ -2,9 +2,10 @@ import { redirect } from 'next/navigation';
 import { auth } from '../../auth';
 
 async function DashboardPage() {
-    const session = await auth();
-    if (!session) redirect('/login');
-    console.log('dashboard:', session);
+    // const session = await auth();
+    // if (!session) redirect('/login');
+    //console.log('dashboard:', session);
+
     return (
         <div className="flex flex-col min-h-screen items-center justify-center">
             <h1 className="text-center text-2xl">Dashboard</h1>

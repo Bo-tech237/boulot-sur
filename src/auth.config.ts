@@ -9,10 +9,10 @@ export const authConfig = {
     },
 
     callbacks: {
-        // async authorized({ auth, request: { nextUrl } }) {
+        // authorized({ auth, request: { nextUrl } }) {
         //     const isLoggedIn = !!auth?.user;
         //     console.log('user', auth, isLoggedIn);
-        //     const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
+        //     const isOnDashboard = nextUrl.pathname.startsWith('/');
         //     if (isOnDashboard) {
         //         if (isLoggedIn) return true;
         //         return false; // Redirect unauthenticated users to login page

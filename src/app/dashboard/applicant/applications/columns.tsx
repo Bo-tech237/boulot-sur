@@ -49,6 +49,11 @@ export const columns: ColumnDef<any>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Status" />
         ),
+        cell: ({ row }) => {
+            const status: string = row.getValue('status');
+
+            return <div className="font-medium uppercase">{status}</div>;
+        },
     },
     {
         accessorKey: 'recruiter.name',
@@ -61,6 +66,11 @@ export const columns: ColumnDef<any>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Job" />
         ),
+        cell: ({ row }) => {
+            const title: string = row.getValue('job_title');
+
+            return <div className="font-medium uppercase">{title}</div>;
+        },
     },
     {
         accessorKey: 'recruiter.rating',

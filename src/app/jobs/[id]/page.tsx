@@ -1,4 +1,4 @@
-import React, { cache } from 'react';
+import React from 'react';
 import { jobApiTypes } from '@/lib/jobSchema';
 import JobDetail from '@/components/JobDetail';
 import { Metadata } from 'next';

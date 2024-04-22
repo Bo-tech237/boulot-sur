@@ -13,6 +13,7 @@ import {
 } from './ui/dialog';
 import { ReactNode } from 'react';
 import { SelectForm } from './SelectForm';
+import { useSession } from 'next-auth/react';
 
 type Props = {
     application: {
@@ -27,6 +28,8 @@ type Props = {
 };
 
 function UpdateDialog({ application, children }: Props) {
+    const { data: session } = useSession();
+
     return (
         <div>
             <Dialog>
@@ -38,17 +41,14 @@ function UpdateDialog({ application, children }: Props) {
                         <DialogTitle>Are you sure?</DialogTitle>
                         <DialogDescription>
                             Do you want to change{' '}
-                            {application?.recruiter.role === 'recruiter'
+                            {session?.user?.role === 'recruiter'
                                 ? application?.applicant.name
                                 : 'your'}{' '}
                             status?
                         </DialogDescription>
                     </DialogHeader>
 
-                    <SelectForm
-                        applicationId={application?._id}
-                        role={application?.recruiter.role}
-                    />
+                    <SelectForm applicationId={application?._id} />
 
                     <DialogFooter>
                         <DialogClose asChild>

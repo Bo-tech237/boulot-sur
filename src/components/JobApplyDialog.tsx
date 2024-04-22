@@ -25,6 +25,7 @@ import { applyForJob } from '@/route.actions/applications-actions';
 import { handleError } from '@/utils/handleError';
 import { useToast } from './ui/use-toast';
 import { useRouter } from 'next/navigation';
+import { Loader2 } from 'lucide-react';
 
 type applyJob = { sop: string };
 
@@ -105,9 +106,15 @@ function JobApplyDialog({ jobId }: { jobId: string }) {
                                         type="submit"
                                         disabled={form.formState.isSubmitting}
                                     >
-                                        {form.formState.isSubmitting
-                                            ? 'Applying...'
-                                            : 'Apply Now'}
+                                        <span className="flex items-center justify-center gap-1">
+                                            {form.formState.isSubmitting && (
+                                                <Loader2
+                                                    size={16}
+                                                    className="animate-spin"
+                                                />
+                                            )}
+                                            Apply Now
+                                        </span>
                                     </Button>
                                 </div>
                                 <div

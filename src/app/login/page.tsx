@@ -11,8 +11,9 @@ export const metadata: Metadata = {
 };
 
 async function LoginPage() {
-    const session = await auth();
-    if (session) redirect('/dashboard');
+    // const session = await auth();
+    // if (session) redirect('/dashboard');
+
     return (
         <div className="flex flex-col justify-center items-center my-10">
             <LoginTabs />

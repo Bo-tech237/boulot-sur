@@ -16,6 +16,8 @@ import { loginSchema } from '@/lib/authSchema';
 import type { loginUser } from '@/lib/authSchema';
 import Link from 'next/link';
 import { authenticate } from '@/lib/actions';
+import { Loader2 } from 'lucide-react';
+import { toast } from './ui/use-toast';
 
 type accountTypeProps = { accountType: string };
 
@@ -35,6 +37,12 @@ function Login({ accountType }: accountTypeProps) {
         if (result?.error) {
             return form.setError('root', { message: result.error });
         }
+
+        toast({
+            variant: 'success',
+            title: 'You have log in successfully',
+            description: `${new Date()}`,
+        });
 
         form.reset();
     }
@@ -89,9 +97,15 @@ function Login({ accountType }: accountTypeProps) {
                             type="submit"
                             disabled={form.formState.isSubmitting}
                         >
-                            {form.formState.isSubmitting
-                                ? 'Submitting...'
-                                : 'Submit'}
+                            <span className="flex items-center justify-center gap-1">
+                                {form.formState.isSubmitting && (
+                                    <Loader2
+                                        size={16}
+                                        className="animate-spin"
+                                    />
+                                )}
+                                Submit
+                            </span>
                         </Button>
                     </div>
                     <div

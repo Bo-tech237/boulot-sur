@@ -13,7 +13,7 @@ export async function authenticate(data: loginUser) {
             email,
             password,
             accountType,
-            redirectTo: '/dashboard',
+            //redirectTo: '/dashboard',
         });
     } catch (error) {
         if (error instanceof AuthError) {

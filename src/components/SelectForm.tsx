@@ -23,6 +23,8 @@ import {
 import { toast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import { updateApplication } from '@/route.actions/applications-actions';
+import { useSession } from 'next-auth/react';
+import { Loader2 } from 'lucide-react';
 
 const FormSchema = z.object({
     status: z
@@ -30,15 +32,15 @@ const FormSchema = z.object({
         .min(1, { message: 'Please select an action to display.' }),
 });
 
-type Prop = { applicationId: string; role: string };
+type Prop = { applicationId: string };
 
-export function SelectForm({ applicationId, role }: Prop) {
+export function SelectForm({ applicationId }: Prop) {
     const router = useRouter();
+    const { data: session } = useSession();
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
     });
 
-    console.log('select02', role);
     async function onSubmit(data: z.infer<typeof FormSchema>) {
         const updatedApplication = await updateApplication(applicationId, data);
 
@@ -80,7 +82,7 @@ export function SelectForm({ applicationId, role }: Prop) {
                                         <SelectValue placeholder="Select a status to display" />
                                     </SelectTrigger>
                                 </FormControl>
-                                {role === 'recruiter' ? (
+                                {session?.user?.role === 'recruiter' ? (
                                     <SelectContent>
                                         <SelectItem value="shortlisted">
                                             shortlist
@@ -108,7 +110,12 @@ export function SelectForm({ applicationId, role }: Prop) {
                     )}
                 />
                 <Button type="submit" disabled={form.formState.isSubmitting}>
-                    {form.formState.isSubmitting ? 'Submitting...' : 'Submit'}
+                    <span className="flex items-center justify-center gap-1">
+                        {form.formState.isSubmitting && (
+                            <Loader2 size={16} className="animate-spin" />
+                        )}
+                        Submit
+                    </span>
                 </Button>
                 <div
                     className="flex mt-2 items-end space-x-1"
