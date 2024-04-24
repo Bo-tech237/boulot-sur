@@ -118,6 +118,10 @@ export async function updateRatings(data: any) {
                                 'Error while updating applicants average rating',
                         };
                     }
+
+                    revalidatePath('/dashboard/applicant/profile', 'page');
+                    revalidatePath('/dashboard/recruiter/applications', 'page');
+
                     return {
                         success: true,
                         message: 'Rating added successfully',
@@ -178,6 +182,10 @@ export async function updateRatings(data: any) {
                             'Error while updating applicants average rating',
                     };
                 }
+
+                revalidatePath('/dashboard/applicant/profile', 'page');
+                revalidatePath('/dashboard/recruiter/applications', 'page');
+
                 return {
                     success: true,
                     message: 'Rating updated successfully',
@@ -313,6 +321,12 @@ export async function updateRatings(data: any) {
                                 'Error while updating recruiters average rating',
                         };
                     }
+
+                    revalidatePath('/jobs');
+                    revalidatePath('/dashboard/recruiter/profile', 'page');
+                    revalidatePath('/dashboard/applicant/applications', 'page');
+                    revalidatePath('/dashboard/recruiter/jobs', 'page');
+
                     return {
                         success: true,
                         message: 'Rating added successfully',
@@ -417,6 +431,12 @@ export async function updateRatings(data: any) {
                             'Error while updating recruiters average rating',
                     };
                 }
+
+                revalidatePath('/jobs');
+                revalidatePath('/dashboard/recruiter/profile', 'page');
+                revalidatePath('/dashboard/applicant/applications', 'page');
+                revalidatePath('/dashboard/recruiter/jobs', 'page');
+
                 return {
                     success: true,
                     message: 'Rating updated successfully',
