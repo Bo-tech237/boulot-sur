@@ -39,6 +39,10 @@ function JobDetail({ job }: Props) {
                         <p className="">{job.acceptedApplicants}</p>
                     </div>
                     <div className="bg-blue-500 w-32 h-16 rounded-lg flex flex-col items-center justify-center">
+                        <span className="">JobType</span>
+                        <p className="">{job.type}</p>
+                    </div>
+                    <div className="bg-blue-500 w-32 h-16 rounded-lg flex flex-col items-center justify-center">
                         <span className="">Rating</span>
                         <p className="">{job.rating}</p>
                     </div>

@@ -10,8 +10,13 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 function LoginTabs() {
+    const { data: session } = useSession();
+    if (session) redirect('/dashboard');
+
     return (
         <div>
             <Tabs defaultValue="recruiter" className="w-80 sm:w-[400px]">

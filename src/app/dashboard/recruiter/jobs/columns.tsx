@@ -101,9 +101,9 @@ export const columns: ColumnDef<jobApiTypes>[] = [
         ),
     },
     {
-        accessorKey: 'duration',
+        accessorKey: 'type',
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Duration" />
+            <DataTableColumnHeader column={column} title="Job Type" />
         ),
     },
     {

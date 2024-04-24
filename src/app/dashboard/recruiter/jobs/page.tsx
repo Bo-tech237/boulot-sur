@@ -4,6 +4,8 @@ import { DataTable } from './data-table';
 import { columns } from './columns';
 import { getRecruitersJobs } from '@/route.actions/jobs-actions';
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
+import getSession from '@/lib/getSession';
 
 export const metadata: Metadata = {
     title: 'My Jobs',
@@ -12,6 +14,8 @@ export const metadata: Metadata = {
 };
 
 async function MyJobs() {
+    const session = await getSession();
+    if (!session) redirect('/login');
     const jobs = await getRecruitersJobs();
     console.log('test1', jobs);
 

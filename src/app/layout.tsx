@@ -5,7 +5,7 @@ import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import MainNav from '@/components/MainNav';
 import { Toaster } from '@/components/ui/toaster';
-import Providers from './provider';
+import { SessionProvider } from 'next-auth/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,13 +25,13 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={inter.className}>
-                <Providers>
+                <SessionProvider>
                     <ThemeProvider>
                         <MainNav />
                         <main className="container">{children}</main>
                         <Toaster />
                     </ThemeProvider>
-                </Providers>
+                </SessionProvider>
             </body>
         </html>
     );

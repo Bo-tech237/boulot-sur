@@ -1,7 +1,7 @@
 import dbConnect from '@/lib/dbConfig';
 import { Job } from '../../../../../models/Job';
 import { NextResponse } from 'next/server';
-import { auth } from '../../../../auth';
+import getSession from '@/lib/getSession';
 
 // @desc Delete a job
 // @route DELETE /jobs
@@ -12,7 +12,7 @@ export async function DELETE(
 ) {
     await dbConnect();
     const id = params.id;
-    const session = await auth();
+    const session = await getSession();
     const user = session?.user;
 
     try {

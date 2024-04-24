@@ -1,11 +1,11 @@
 import dbConnect from '@/lib/dbConfig';
 import { Application } from '../../../../models/Application';
 import { NextResponse } from 'next/server';
-import { auth } from '@/auth';
+import getSession from '@/lib/getSession';
 
 export async function GET() {
     await dbConnect();
-    const session = await auth();
+    const session = await getSession();
     const user = session?.user;
 
     try {

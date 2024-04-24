@@ -1,7 +1,7 @@
 import dbConnect from '@/lib/dbConfig';
 import { Rating } from '../../../../../models/Rating';
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '../../../../auth';
+import getSession from '@/lib/getSession';
 
 // @desc Delete a rating
 // @route DELETE /ratings
@@ -11,7 +11,7 @@ export async function DELETE(
     { params }: { params: { id: string } }
 ) {
     await dbConnect();
-    const session = await auth();
+    const session = await getSession();
     const user = session?.user;
     const id = params.id;
 

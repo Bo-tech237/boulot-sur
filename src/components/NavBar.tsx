@@ -4,16 +4,13 @@ import Link from 'next/link';
 import ModeToggle from './ModeToggle';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import MobileNav from './MobileNav';
-import { Session } from 'next-auth';
 import { buttonVariants } from './ui/button';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
-interface Props {
-    session: Session | null;
-}
-
-function NavBar({ session }: Props) {
+function NavBar() {
+    const { data: session } = useSession();
     const isDesktop = useMediaQuery('(min-width:768px)');
     const pathname = usePathname();
 

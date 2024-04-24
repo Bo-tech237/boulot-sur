@@ -5,8 +5,8 @@ import { Application } from '../../../../models/Application';
 import { Applicant } from '../../../../models/Applicant';
 import { Recruiter } from '../../../../models/Recruiter';
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '../../../auth';
 import mongoose from 'mongoose';
+import getSession from '@/lib/getSession';
 
 // @desc Get all ratings
 // @route GET /ratings
@@ -32,7 +32,7 @@ export async function GET() {
 // @access Private
 export async function PATCH(request: NextRequest) {
     await dbConnect();
-    const session = await auth();
+    const session = await getSession();
     const user = session?.user;
 
     const data = await request.json();

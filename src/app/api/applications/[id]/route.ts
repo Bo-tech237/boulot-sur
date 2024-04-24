@@ -2,8 +2,8 @@ import dbConnect from '@/lib/dbConfig';
 import { Application } from '../../../../../models/Application';
 import { Job } from '../../../../../models/Job';
 import { NextResponse, NextRequest } from 'next/server';
-import { auth } from '../../../../auth';
 import mongoose from 'mongoose';
+import getSession from '@/lib/getSession';
 
 // @desc Create new application
 // @route POST /applications
@@ -13,7 +13,7 @@ export async function POST(
     { params }: { params: { id: string } }
 ) {
     await dbConnect();
-    const session = await auth();
+    const session = await getSession();
     const user = session?.user;
     const jobId = params.id;
 
@@ -132,7 +132,7 @@ export async function PATCH(
 ) {
     await dbConnect();
 
-    const session = await auth();
+    const session = await getSession();
     const user = session?.user;
     const { id } = params;
     const { status } = await request.json();
@@ -325,7 +325,7 @@ export async function DELETE(
 ) {
     await dbConnect();
     const id = params.id;
-    const session = await auth();
+    const session = await getSession();
     const user = session?.user;
     try {
         console.log('application user:', user);
@@ -371,7 +371,7 @@ export async function GET(
     { params }: { params: { id: string } }
 ) {
     await dbConnect();
-    const session = await auth();
+    const session = await getSession();
     const user = session?.user;
     const jobId = params.id;
 

@@ -5,15 +5,12 @@ import { cn } from '@/lib/utils';
 import { Button, buttonVariants } from './ui/button';
 import { Icons } from './icons';
 import { recruiterNavItems, applicantNavItems } from '@/constants/data';
-import { Session } from 'next-auth';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Menu } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 
-interface Props {
-    session: Session | null;
-}
-
-export function SideBarLinks({ session }: Props) {
+export function SideBarLinks() {
+    const { data: session } = useSession();
     const pathname = usePathname();
 
     return (

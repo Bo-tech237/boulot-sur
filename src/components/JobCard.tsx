@@ -32,6 +32,7 @@ function JobCard({ job }: Props) {
                     <p>
                         Skills: {job.skillsets.map((skillset) => skillset.text)}
                     </p>
+                    <p>JobType: {job.type}</p>
 
                     <p>
                         <ShowRating userRating={job.rating} />

@@ -1,9 +1,9 @@
 import dbConnect from '@/lib/dbConfig';
 import { Job } from '../../../../models/Job';
 import { NextResponse } from 'next/server';
-import { auth } from '@/auth';
 import { jobApiTypes } from '@/lib/jobSchema';
 import { revalidatePath } from 'next/cache';
+import getSession from '@/lib/getSession';
 
 // @desc Get all jobs
 // @route GET /jobs
@@ -32,7 +32,7 @@ export async function GET() {
 // @access Private
 export async function POST(request: Request) {
     await dbConnect();
-    const session = await auth();
+    const session = await getSession();
     const user = session?.user;
 
     const {
@@ -111,7 +111,7 @@ export async function POST(request: Request) {
 // @access Private
 export async function PATCH(request: Request) {
     await dbConnect();
-    const session = await auth();
+    const session = await getSession();
     const user = session?.user;
 
     const {

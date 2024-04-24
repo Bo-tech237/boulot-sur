@@ -3,6 +3,8 @@ import { columns } from './columns';
 import { DataTable } from './data-table';
 import { applicantApiTypes } from '@/lib/applicantSchema';
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
+import getSession from '@/lib/getSession';
 
 export const metadata: Metadata = {
     title: 'Profile',
@@ -11,6 +13,8 @@ export const metadata: Metadata = {
 };
 
 async function Profile() {
+    const session = await getSession();
+    if (!session) redirect('/login');
     const applicant = await getAllApplicants();
 
     return (

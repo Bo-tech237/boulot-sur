@@ -3,6 +3,8 @@ import { DataTable } from './data-table';
 import { columns } from './columns';
 import { getAllApplications } from '@/route.actions/applications-actions';
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
+import getSession from '@/lib/getSession';
 
 export const metadata: Metadata = {
     title: 'Applications',
@@ -11,6 +13,8 @@ export const metadata: Metadata = {
 };
 
 async function Applications() {
+    const session = await getSession();
+    if (!session) redirect('/login');
     const applications = await getAllApplications();
     console.log('applications', applications);
 
