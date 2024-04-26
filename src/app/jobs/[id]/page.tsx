@@ -45,7 +45,7 @@ const getAllJobs = nextCache(async () => {
 
 export async function generateStaticParams() {
     const jobs: jobApiTypes[] = await getAllJobs();
-    return jobs.map((job) => ({ id: job?._id }));
+    return jobs?.map((job) => ({ id: job?._id }));
 }
 
 export async function generateMetadata({

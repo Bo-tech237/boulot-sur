@@ -12,7 +12,7 @@ function JobDetail({ job }: Props) {
     return (
         <div className="">
             <div className="flex flex-col gap-5">
-                <H1>{job.title}</H1>
+                <H1 className="uppercase">{job.title}</H1>
                 <div className="w-full flex flex-wrap gap-3 sm:gap-5">
                     <div className="bg-blue-500 w-32 h-16 rounded-lg flex flex-col items-center justify-center">
                         <span className="">Max Applicants</span>

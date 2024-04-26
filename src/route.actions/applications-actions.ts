@@ -125,7 +125,7 @@ export async function applyForJob(data: { sop: string }, jobId: string) {
         if (user?.role !== 'applicant') {
             return {
                 success: false,
-                message: 'You have no permissions to apply for a job',
+                message: 'You have no permissions to apply for this job',
             };
         }
 
@@ -195,6 +195,7 @@ export async function applyForJob(data: { sop: string }, jobId: string) {
                             '/dashboard/applicant/applications',
                             'page'
                         );
+                        revalidatePath('/jobs/[id]', 'page');
 
                         return {
                             success: true,
@@ -280,24 +281,13 @@ export async function updateApplication(
                 // count applications that are already accepted
                 // compare and if condition is satisfied, then save
 
-                console.log('updateStatus', application.status);
-
-                if (
-                    application.status === 'cancelled' ||
-                    application.status === 'rejected' ||
-                    application.status === 'finished'
-                ) {
-                    return {
-                        success: false,
-                        message: 'This application cannot be accepted.',
-                    };
-                }
-
                 const acceptedApplication = await Application.findOne({
                     applicantId: application.applicantId,
                     recruiterId: user?.id,
                     jobId: job._id,
-                    status: 'accepted',
+                    status: {
+                        $nin: ['applied', 'shortlisted'],
+                    },
                 });
 
                 if (acceptedApplication) {
@@ -330,7 +320,6 @@ export async function updateApplication(
                                     status: {
                                         $nin: [
                                             'rejected',
-                                            'deleted',
                                             'cancelled',
                                             'accepted',
                                             'finished',
@@ -367,6 +356,7 @@ export async function updateApplication(
                                     '/dashboard/applicant/applications',
                                     'page'
                                 );
+                                revalidatePath('/jobs/[id]', 'page');
                                 return {
                                     success: true,
                                     message: `Application ${status} successfully`,
@@ -389,7 +379,13 @@ export async function updateApplication(
                             _id: applicationId,
                             recruiterId: user?.id,
                             status: {
-                                $nin: ['rejected', 'deleted', 'cancelled'],
+                                $nin: [
+                                    'applied',
+                                    'shortlisted',
+                                    'rejected',
+                                    'cancelled',
+                                    'finished',
+                                ],
                             },
                         },
                         {
@@ -408,33 +404,25 @@ export async function updateApplication(
 
                     revalidatePath('/dashboard/recruiter/applications', 'page');
                     revalidatePath('/dashboard/applicant/applications', 'page');
+                    revalidatePath('/jobs/[id]', 'page');
 
                     return {
                         success: true,
                         message: `Job ${status} successfully`,
                     };
                 } else if (status === 'shortlisted') {
-                    const acceptedApplication = await Application.findOne({
-                        applicantId: application.applicantId,
-                        recruiterId: user?.id,
-                        jobId: job._id,
-                        status: 'accepted',
-                    });
-
-                    if (acceptedApplication) {
-                        return {
-                            success: false,
-                            message:
-                                'This application has already been accepted.',
-                        };
-                    }
-
-                    const applications = await Application.findOneAndUpdate(
+                    const application = await Application.findOneAndUpdate(
                         {
                             _id: applicationId,
                             recruiterId: user?.id,
                             status: {
-                                $nin: ['rejected', 'deleted', 'cancelled'],
+                                $nin: [
+                                    'accepted',
+                                    'rejected',
+                                    'finished',
+                                    'cancelled',
+                                    'shortlisted',
+                                ],
                             },
                         },
                         {
@@ -444,7 +432,7 @@ export async function updateApplication(
                         }
                     );
 
-                    if (!applications) {
+                    if (!application) {
                         return {
                             success: false,
                             message: 'Application status can not be updated',
@@ -453,6 +441,7 @@ export async function updateApplication(
 
                     revalidatePath('/dashboard/recruiter/applications', 'page');
                     revalidatePath('/dashboard/applicant/applications', 'page');
+                    revalidatePath('/jobs/[id]', 'page');
 
                     return {
                         success: true,
@@ -464,7 +453,12 @@ export async function updateApplication(
                             _id: applicationId,
                             recruiterId: user?.id,
                             status: {
-                                $nin: ['rejected', 'deleted', 'cancelled'],
+                                $nin: [
+                                    'accepted',
+                                    'finished',
+                                    'cancelled',
+                                    'rejected',
+                                ],
                             },
                         },
                         {
@@ -483,6 +477,7 @@ export async function updateApplication(
 
                     revalidatePath('/dashboard/recruiter/applications', 'page');
                     revalidatePath('/dashboard/applicant/applications', 'page');
+                    revalidatePath('/jobs/[id]', 'page');
 
                     return {
                         success: true,
@@ -491,41 +486,39 @@ export async function updateApplication(
                 }
             }
         } else {
-            //Applicant
+            //Applicant can cancel
 
-            if (status === 'cancelled') {
-                const application = await Application.findOneAndUpdate(
-                    {
-                        _id: applicationId,
-                        applicantId: user?.id,
+            const application = await Application.findOneAndUpdate(
+                {
+                    _id: applicationId,
+                    applicantId: user?.id,
+                    status: {
+                        $nin: ['accepted', 'finished', 'cancelled', 'rejected'],
                     },
-                    {
-                        $set: {
-                            status: status,
-                        },
-                    }
-                );
+                },
 
-                if (application) {
-                    revalidatePath('/dashboard/recruiter/applications', 'page');
-                    revalidatePath('/dashboard/applicant/applications', 'page');
-
-                    return {
-                        success: true,
-                        message: `Application ${status} successfully`,
-                    };
-                } else {
-                    return {
-                        success: false,
-                        message: 'No application found',
-                    };
+                {
+                    $set: {
+                        status: status,
+                    },
                 }
-            } else {
+            );
+
+            if (!application) {
                 return {
                     success: false,
-                    message: 'You have no permissions to update job status',
+                    message: 'Application status can not be cancelled',
                 };
             }
+
+            revalidatePath('/dashboard/recruiter/applications', 'page');
+            revalidatePath('/dashboard/applicant/applications', 'page');
+            revalidatePath('/jobs/[id]', 'page');
+
+            return {
+                success: true,
+                message: `Application ${status} successfully`,
+            };
         }
     } catch (error) {
         handleError(error);
