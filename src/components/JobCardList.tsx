@@ -73,8 +73,8 @@ async function JobCardList({ filterValues, page = 1 }: JobCardListProps) {
 
     const values = await getAllJobs(q, type, skip, jobsPerPage);
 
-    const jobs = values?.jobs || [];
-    const totalCount = values?.totalCount || 0;
+    const jobs = values?.jobs!;
+    const totalCount = values?.totalCount!;
 
     console.log('action', jobs);
 

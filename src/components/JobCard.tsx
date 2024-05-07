@@ -30,7 +30,15 @@ function JobCard({ job }: Props) {
                     <p>Salary: {formatMoney(job.salary)}</p>
                     <p>Posted: {jobPostedTime(new Date(job.createdAt))}</p>
                     <p>
-                        Skills: {job.skillsets.map((skillset) => skillset.text)}
+                        Skills:{' '}
+                        {job.skillsets.map(
+                            (skillset: { text: any }, index: number) =>
+                                `${index < 2 ? skillset.text : ''} ${
+                                    job.skillsets?.length > 1 && index < 1
+                                        ? ','
+                                        : ''
+                                } `
+                        )}
                     </p>
                     <p>JobType: {job.type}</p>
 

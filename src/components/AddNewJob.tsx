@@ -36,7 +36,7 @@ function AddNewJob({ job }: any) {
             maxPositions: job?.maxPositions,
             activeApplications: job?.activeApplications,
             acceptedApplicants: job?.acceptedApplicants,
-            skillsets: job?.skillsets || [],
+            skillsets: job?.skillsets,
             description: job?.description,
             location: job?.location,
             salary: job?.salary,

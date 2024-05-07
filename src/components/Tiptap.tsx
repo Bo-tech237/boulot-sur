@@ -20,9 +20,10 @@ const Tiptap = ({
             TextAlign.configure({
                 types: ['heading', 'paragraph'],
                 alignments: ['left', 'center', 'right'],
+                defaultAlignment: 'left',
             }),
         ],
-        content: description,
+        content: description && `${description}`,
         editorProps: {
             attributes: {
                 class: 'min-h-[150px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',

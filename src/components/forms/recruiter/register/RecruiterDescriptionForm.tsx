@@ -9,6 +9,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { UseFormReturn } from 'react-hook-form';
 import { FormWrapper } from '@/components/forms/formWrapper';
+import Tiptap from '@/components/Tiptap';
 
 function RecruiterDescriptionForm(
     form: UseFormReturn<
@@ -36,10 +37,9 @@ function RecruiterDescriptionForm(
                         <FormItem>
                             <FormLabel>Description</FormLabel>
                             <FormControl>
-                                <Textarea
-                                    placeholder="Tell us a little bit about yourself"
-                                    className="resize-none"
-                                    {...field}
+                                <Tiptap
+                                    description={field.name}
+                                    onChange={field.onChange}
                                 />
                             </FormControl>
                             <FormMessage />

@@ -11,6 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { UseFormReturn } from 'react-hook-form';
 import { FormWrapper } from '@/components/forms/formWrapper';
 import { Tag, TagInput } from '@/components/tag/tag-input';
+import Tiptap from '@/components/Tiptap';
 
 function RecruiterAddJobForm3(
     form: UseFormReturn<
@@ -37,9 +38,28 @@ function RecruiterAddJobForm3(
     const [tags, setTags] = React.useState<Tag[]>([]);
     const { setValue } = form;
 
+    //console.log('now237', form.formState.defaultValues?.skillsets);
+
     return (
         <div>
             <FormWrapper title="Description">
+                <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Description</FormLabel>
+                            <FormControl>
+                                <Tiptap
+                                    description={field.value}
+                                    onChange={field.onChange}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
                 <FormField
                     control={form.control}
                     name="skillsets"
@@ -50,8 +70,12 @@ function RecruiterAddJobForm3(
                                 <TagInput
                                     {...field}
                                     placeholder="Enter a skill"
-                                    tags={tags}
-                                    className="sm:min-w-[450px]"
+                                    tags={
+                                        field.value?.length > 0
+                                            ? field.value
+                                            : tags
+                                    }
+                                    className=""
                                     inputFieldPostion="top"
                                     draggable={true}
                                     setTags={(newTags) => {
@@ -61,24 +85,6 @@ function RecruiterAddJobForm3(
                                             newTags as [Tag, ...Tag[]]
                                         );
                                     }}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
-                <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Description</FormLabel>
-                            <FormControl>
-                                <Textarea
-                                    placeholder="Tell us a little bit about yourself"
-                                    className="resize-none"
-                                    {...field}
                                 />
                             </FormControl>
                             <FormMessage />

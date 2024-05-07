@@ -11,7 +11,7 @@ export function useRecruiterAddStepForm(steps: ReactElement[]) {
             fields: ['type', 'location', 'salary'],
         },
         {
-            fields: ['skillsets', 'description'],
+            fields: ['description', 'skillsets'],
         },
     ];
     type FieldName = keyof jobTypes;

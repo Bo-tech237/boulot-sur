@@ -2,6 +2,7 @@ import React from 'react';
 import { jobApiTypes } from '@/lib/jobSchema';
 import JobApplyDialog from './JobApplyDialog';
 import { Button } from './ui/button';
+import { Badge } from './ui/badge';
 import Link from 'next/link';
 import H1 from './ui/h1';
 import { formatMoney } from '@/lib/friendly-time';
@@ -48,8 +49,25 @@ function JobDetail({ job }: Props) {
                     </div>
                 </div>
                 <div className="">
-                    <p>{job.description}</p>
+                    <h1 className="font-bold uppercase mb-3 text-2xl">
+                        Skills
+                    </h1>
+                    <div className="flex gap-2">
+                        {job.skillsets.map((skill) => (
+                            <Badge key={skill.id} className="p-2 capitalize">
+                                {skill.text}
+                            </Badge>
+                        ))}
+                    </div>
                 </div>
+
+                {job && (
+                    <div
+                        className="ProseMirror whitespace-pre-line py-4"
+                        style={{ whiteSpace: 'pre-line' }}
+                        dangerouslySetInnerHTML={{ __html: job.description }}
+                    />
+                )}
                 <div className="flex justify-between items-center gap-2">
                     <JobApplyDialog jobId={job._id} />
                     <Button>

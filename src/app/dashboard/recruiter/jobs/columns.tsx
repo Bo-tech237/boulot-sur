@@ -76,7 +76,7 @@ export const columns: ColumnDef<jobApiTypes>[] = [
         cell: ({ row }) => {
             const skillsets: any[] = row.getValue('skillsets');
 
-            const formatted = skillsets.map((skillset) => skillset.text);
+            const formatted = skillsets.map((skillset) => `${skillset.text} `);
 
             return <div className="font-medium capitalize">{formatted}</div>;
         },

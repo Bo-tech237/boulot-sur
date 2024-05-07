@@ -13,7 +13,6 @@ export const jobSchema = z.object({
         .min(1, { message: 'Max position required' }),
     activeApplications: z.coerce.number().optional(),
     acceptedApplicants: z.coerce.number().optional(),
-    //skillsets: z.array(z.string()).min(1, { message: 'Skills required' }),
     skillsets: z
         .array(
             z.object({
@@ -27,9 +26,6 @@ export const jobSchema = z.object({
         .min(1, { message: 'Description required' })
         .min(10, {
             message: 'Description must be at least 10 characters.',
-        })
-        .max(160, {
-            message: 'Description must not be longer than 160 characters.',
         }),
     location: z.string().min(1, { message: 'Location required' }),
     type: z
@@ -43,12 +39,13 @@ export const jobSchema = z.object({
 export const applyJobSchema = z.object({
     sop: z
         .string()
-        .min(1, { message: 'Description required' })
+        .min(1, { message: 'Statement of purpose required' })
         .min(10, {
-            message: 'Description must be at least 10 characters.',
+            message: 'Statement of purpose must be at least 10 characters.',
         })
         .max(160, {
-            message: 'Description must not be longer than 160 characters.',
+            message:
+                'Statement of purpose must not be longer than 160 characters.',
         }),
 });
 

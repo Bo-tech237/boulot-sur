@@ -196,6 +196,7 @@ export async function updateJob(jobId: string, data: jobTypes) {
         }
 
         revalidatePath('/jobs');
+        revalidatePath('/jobs/[id]', 'page');
         revalidatePath('/dashboard/recruiter/jobs', 'page');
 
         return {
