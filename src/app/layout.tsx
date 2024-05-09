@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import MainNav from '@/components/MainNav';
 import { Toaster } from '@/components/ui/toaster';
 import { SessionProvider } from 'next-auth/react';
+import Footer from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({
                     <ThemeProvider>
                         <MainNav />
                         <main className="container">{children}</main>
+                        <Footer />
                         <Toaster />
                     </ThemeProvider>
                 </SessionProvider>
