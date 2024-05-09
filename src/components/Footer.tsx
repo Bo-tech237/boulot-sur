@@ -1,4 +1,7 @@
-import React from 'react';
+'use client';
+
+import { ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Footer() {
     return (
@@ -11,7 +14,7 @@ export default function Footer() {
                             <div className="col-span-12 xl:col-span-4">
                                 <div className="mr-12">
                                     <h4 className="text-white mb-6 text-[23px]">
-                                        Jobcy
+                                        Boulot Sur
                                     </h4>
                                     <p className="text-white/50 dark:text-gray-300">
                                         It is a long established fact that a
@@ -22,28 +25,28 @@ export default function Footer() {
                                         Follow Us on:
                                     </p>
                                     <div className="mt-5">
-                                        <ul className="flex gap-3">
+                                        <div className="flex gap-3">
                                             <li className="w-8 h-8 leading-loose text-center text-gray-200 transition-all duration-300 border rounded-full cursor-pointer border-gray-200/50 hover:text-gray-50 group-data-[theme-color=violet]:hover:bg-violet-500 group-data-[theme-color=sky]:hover:bg-sky-500 group-data-[theme-color=red]:hover:bg-red-500 group-data-[theme-color=green]:hover:bg-green-500 group-data-[theme-color=pink]:hover:bg-pink-500 group-data-[theme-color=blue]:hover:bg-blue-500 hover:border-transparent">
-                                                <a href="#">
+                                                <Link href="#">
                                                     <i className="uil uil-facebook-f"></i>
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li className="w-8 h-8 leading-loose text-center text-gray-200 transition-all duration-300 border rounded-full cursor-pointer border-gray-200/50 hover:text-gray-50 group-data-[theme-color=violet]:hover:bg-violet-500 group-data-[theme-color=sky]:hover:bg-sky-500 group-data-[theme-color=red]:hover:bg-red-500 group-data-[theme-color=green]:hover:bg-green-500 group-data-[theme-color=pink]:hover:bg-pink-500 group-data-[theme-color=blue]:hover:bg-blue-500 hover:border-transparent">
-                                                <a href="#">
+                                                <Link href="#">
                                                     <i className="uil uil-linkedin-alt"></i>
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li className="w-8 h-8 leading-loose text-center text-gray-200 transition-all duration-300 border rounded-full cursor-pointer border-gray-200/50 hover:text-gray-50 group-data-[theme-color=violet]:hover:bg-violet-500 group-data-[theme-color=sky]:hover:bg-sky-500 group-data-[theme-color=red]:hover:bg-red-500 group-data-[theme-color=green]:hover:bg-green-500 group-data-[theme-color=pink]:hover:bg-pink-500 group-data-[theme-color=blue]:hover:bg-blue-500 hover:border-transparent">
-                                                <a href="#">
+                                                <Link href="#">
                                                     <i className="uil uil-google"></i>
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li className="w-8 h-8 leading-loose text-center text-gray-200 transition-all duration-300 border rounded-full cursor-pointer border-gray-200/50 hover:text-gray-50 group-data-[theme-color=violet]:hover:bg-violet-500 group-data-[theme-color=sky]:hover:bg-sky-500 group-data-[theme-color=red]:hover:bg-red-500 group-data-[theme-color=green]:hover:bg-green-500 group-data-[theme-color=pink]:hover:bg-pink-500 group-data-[theme-color=blue]:hover:bg-blue-500 hover:border-transparent">
-                                                <a href="#">
+                                                <Link href="#">
                                                     <i className="uil uil-twitter"></i>
-                                                </a>
+                                                </Link>
                                             </li>
-                                        </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -51,125 +54,142 @@ export default function Footer() {
                                 <p className="mb-6 text-white text-16">
                                     Company
                                 </p>
-                                <ul className="space-y-4">
-                                    <li className="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
-                                        <a href="about.html">
-                                            <i className="mdi mdi-chevron-right"></i>{' '}
-                                            About Us
-                                        </a>
-                                    </li>
-                                    <li className="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
-                                        <a href="contact.html">
-                                            <i className="mdi mdi-chevron-right"></i>{' '}
-                                            Contact Us
-                                        </a>
-                                    </li>
-                                    <li className="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
-                                        <a href="services.html">
-                                            <i className="mdi mdi-chevron-right"></i>{' '}
-                                            Services
-                                        </a>
-                                    </li>
-                                    <li className="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
-                                        <a href="blog.html">
-                                            <i className="mdi mdi-chevron-right"></i>{' '}
-                                            Blog
-                                        </a>
-                                    </li>
-                                    <li className="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
-                                        <a href="team.html">
-                                            <i className="mdi mdi-chevron-right"></i>{' '}
-                                            Team
-                                        </a>
-                                    </li>
-                                    <li className="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
-                                        <a href="pricing.html">
-                                            <i className="mdi mdi-chevron-right"></i>{' '}
-                                            Pricing
-                                        </a>
-                                    </li>
-                                </ul>
+                                <div className="space-y-4">
+                                    <Link
+                                        className="flex gap-1 items-center text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50"
+                                        href="/about"
+                                    >
+                                        <ChevronRight size={20} /> About Us
+                                    </Link>
+
+                                    <Link
+                                        className="flex gap-1 items-center text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50"
+                                        href="/contact"
+                                    >
+                                        <ChevronRight size={20} /> Contact Us
+                                    </Link>
+
+                                    <Link
+                                        className="flex gap-1 items-center text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50"
+                                        href="/services"
+                                    >
+                                        <ChevronRight size={20} /> Services
+                                    </Link>
+
+                                    <Link
+                                        className="flex gap-1 items-center text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50"
+                                        href="/blog"
+                                    >
+                                        <ChevronRight size={20} /> Blog
+                                    </Link>
+
+                                    <Link
+                                        className="flex gap-1 items-center text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50"
+                                        href="/team"
+                                    >
+                                        <ChevronRight size={20} /> Team
+                                    </Link>
+
+                                    <Link
+                                        className="flex gap-1 items-center text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50"
+                                        href="/pricing"
+                                    >
+                                        <ChevronRight size={20} /> Pricing
+                                    </Link>
+                                </div>
                             </div>
                             <div className="col-span-12 mt-8 md:col-span-6 xl:col-span-2 md:mt-0">
                                 <p className="mb-6 text-white text-16">
                                     For Jobs
                                 </p>
-                                <ul className="space-y-4">
-                                    <li className="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
-                                        <a href="job-categories.html">
-                                            <i className="mdi mdi-chevron-right"></i>{' '}
-                                            Browser Categories
-                                        </a>
-                                    </li>
-                                    <li className="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
-                                        <a href="job-list.html">
-                                            <i className="mdi mdi-chevron-right"></i>{' '}
-                                            Browser Jobs
-                                        </a>
-                                    </li>
-                                    <li className="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
-                                        <a href="job-details.html">
-                                            <i className="mdi mdi-chevron-right"></i>{' '}
-                                            Job Details
-                                        </a>
-                                    </li>
-                                    <li className="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
-                                        <a href="bookmark-jobs.html">
-                                            <i className="mdi mdi-chevron-right"></i>{' '}
-                                            Bookmark Jobs
-                                        </a>
-                                    </li>
-                                </ul>
+                                <div className="space-y-4">
+                                    <Link
+                                        className="flex gap-1 items-center text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50"
+                                        href="/job-categories"
+                                    >
+                                        <ChevronRight size={20} /> Browser
+                                        Categories
+                                    </Link>
+
+                                    <Link
+                                        className="flex gap-1 items-center text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50"
+                                        href="/jobs"
+                                    >
+                                        <ChevronRight size={20} /> Browser Jobs
+                                    </Link>
+
+                                    <Link
+                                        className="flex gap-1 items-center text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50"
+                                        href="/job-details"
+                                    >
+                                        <ChevronRight size={20} /> Job Details
+                                    </Link>
+
+                                    <Link
+                                        className="flex gap-1 items-center text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50"
+                                        href="/bookmark-jobs"
+                                    >
+                                        <ChevronRight size={20} /> Bookmark Jobs
+                                    </Link>
+                                </div>
                             </div>
                             <div className="col-span-12 mt-8 md:col-span-6 xl:col-span-2 md:mt-0">
                                 <p className="mb-6 text-white text-16">
                                     For Candidates
                                 </p>
-                                <ul className="space-y-4">
-                                    <li className="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
-                                        <a href="candidate-list.html">
-                                            <i className="mdi mdi-chevron-right"></i>{' '}
-                                            Candidate List
-                                        </a>
-                                    </li>
-                                    <li className="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
-                                        <a href="candidate-grid.html">
-                                            <i className="mdi mdi-chevron-right"></i>{' '}
-                                            Candidate Grid
-                                        </a>
-                                    </li>
-                                    <li className="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
-                                        <a href="candidate-details.html">
-                                            <i className="mdi mdi-chevron-right"></i>{' '}
-                                            Candidate Details
-                                        </a>
-                                    </li>
-                                </ul>
+                                <div className="space-y-4">
+                                    <Link
+                                        className="flex gap-1 items-center text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50"
+                                        href="/candidate-list"
+                                    >
+                                        <ChevronRight size={20} /> Candidate
+                                        List
+                                    </Link>
+
+                                    <Link
+                                        className="flex gap-1 items-center text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50"
+                                        href="/candidate-grid"
+                                    >
+                                        <ChevronRight size={20} /> Candidate
+                                        Grid
+                                    </Link>
+
+                                    <Link
+                                        className="flex gap-1 items-center text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50"
+                                        href="/candidate-details"
+                                    >
+                                        <ChevronRight size={20} /> Candidate
+                                        Details
+                                    </Link>
+                                </div>
                             </div>
                             <div className="col-span-12 mt-8 md:col-span-6 xl:col-span-2 md:mt-0">
                                 <p className="mb-6 text-white text-16">
                                     Support
                                 </p>
-                                <ul className="space-y-4">
-                                    <li className="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
-                                        <a href="contact.html">
-                                            <i className="mdi mdi-chevron-right"></i>{' '}
-                                            Help Center
-                                        </a>
-                                    </li>
-                                    <li className="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
-                                        <a href="faqs.html">
-                                            <i className="mdi mdi-chevron-right"></i>{' '}
-                                            FAQ &apos;S
-                                        </a>
-                                    </li>
-                                    <li className="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
-                                        <a href="privacy-policy.html">
-                                            <i className="mdi mdi-chevron-right"></i>{' '}
-                                            Privacy Policy
-                                        </a>
-                                    </li>
-                                </ul>
+                                <div className="space-y-4">
+                                    <Link
+                                        className="flex gap-1 items-center text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50"
+                                        href="/contact"
+                                    >
+                                        <ChevronRight size={20} /> Help Center
+                                    </Link>
+
+                                    <Link
+                                        className="flex gap-1 items-center text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50"
+                                        href="/faqs"
+                                    >
+                                        <ChevronRight size={20} /> FAQ &apos;S
+                                    </Link>
+
+                                    <Link
+                                        className="flex gap-1 items-center text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50"
+                                        href="/privacy-policy"
+                                    >
+                                        <ChevronRight size={20} /> Privacy
+                                        Policy
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -181,17 +201,15 @@ export default function Footer() {
                     <div className="container mx-auto">
                         <div className="text-center">
                             <p className="mb-0 text-center text-white/50">
-                                <script>
-                                    document.write(new Date().getFullYear())
-                                </script>
-                                2024 © Jobcy - Job Listing Page Template by
-                                <a
-                                    href="https://themeforest.net/search/themesdesign"
+                                {new Date().getFullYear()} © Boulot Sur - Job
+                                Listing Web App by{' '}
+                                <Link
+                                    href="#"
                                     target="_blank"
                                     className="underline transition-all duration-300 hover:text-gray-50"
                                 >
-                                    Themesdesign
-                                </a>
+                                    TCHELO ALEX
+                                </Link>
                             </p>
                         </div>
                     </div>
