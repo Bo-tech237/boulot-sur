@@ -1,7 +1,17 @@
+import Category from '@/components/home-page/Category';
+import Hero from '@/components/home-page/Hero';
+import HowItWorks from '@/components/home-page/HowItWorks';
+import Testimonials from '@/components/home-page/Testimonials';
+
 export default async function Home() {
     return (
-        <main className="flex flex-col gap-4 justify-center items-center min-h-screen">
-            <h1 className="text-base md:text-2xl">Welcome To BOULOT SUR!</h1>
+        <main className="">
+            <div className="">
+                <Hero />
+                <Category />
+                <Testimonials />
+                <HowItWorks />
+            </div>
         </main>
     );
 }
